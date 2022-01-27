@@ -31,15 +31,8 @@ public class Hero : MonoBehaviour
     {
         _movement.x = Input.GetAxis("Horizontal");
         _movement.y = Input.GetAxis("Vertical");
-        if(_movement.x!=0)
-        {
-            _movement.y = 0;
-        }
-        else if(_movement.y!=0)
-        {
-            _movement.x = 0;
-        }
-        if(_movement!=Vector3.zero)// to safe it for the idle direction
+
+        if (_movement != Vector3.zero)// to safe it for the idle direction
         {
 
             //change the values of the params in the animator
