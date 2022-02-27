@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class Hero : MonoBehaviour
 {
-    private Animator _anim;
     [SerializeField]
-    private int SPEED=2;
+    private int SPEED = 2;
+    [SerializeField]
+    private int HEALTH = 2;
+    [SerializeField]
+    private int ATTACK = 2;
+    private Animator _anim;
+    
     private Vector3 _movement;
  
     // Start is called before the first frame update
