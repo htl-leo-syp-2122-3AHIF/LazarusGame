@@ -1,0 +1,40 @@
+.UI {
+    width: 15%;
+    height: 15%;
+    left: 35%;
+    top: 75%;
+    position: absolute;
+    justify-content: flex-end;
+    -unity-font-style: normal;
+    color: rgba(255, 0, 0, 0);
+    white-space: normal;
+    font-size: 12px;
+    -unity-background-image-tint-color: rgb(0, 0, 0);
+    background-image: none;
+    overflow: hidden;
+    align-items: stretch;
+    -unity-background-scale-mode: stretch-to-fill;
+    display: flex;
+    opacity: 1;
+    -unity-text-outline-color: rgb(255, 0, 0);
+    text-shadow: 0 0 0 rgb(255, 0, 0);
+    background-color: rgba(60, 60, 60, 0);
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+}
+
+.unity-progress-bar {
+    color: rgba(255, 0, 0, 255);
+    background-color: rgba(255, 255, 255, 0);
+    -unity-background-image-tint-color: rgba(255, 255, 255, 255);
+    border-left-color: rgba(255, 0, 0, 255);
+    border-right-color: rgba(255, 0, 0, 255);
+    border-top-color: rgba(255, 0, 0, 255);
+    border-bottom-color: rgba(255, 0, 0, 255);
+    transition-property: all, ignored;
+    transition-duration: 0s, 0s;
+    transition-timing-function: ease, ease;
+    transition-delay: 0s, 0s;
+}
