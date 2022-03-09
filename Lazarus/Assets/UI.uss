@@ -1,34 +1,67 @@
-.UI {
-    width: 15%;
-    height: 15%;
-    left: 35%;
-    top: 75%;
-    position: absolute;
-    justify-content: flex-end;
-    -unity-font-style: normal;
-    color: rgba(255, 0, 0, 0);
-    white-space: normal;
-    font-size: 12px;
-    -unity-background-image-tint-color: rgb(0, 0, 0);
-    background-image: none;
-    overflow: hidden;
-    align-items: stretch;
-    -unity-background-scale-mode: stretch-to-fill;
-    display: flex;
-    opacity: 1;
-    -unity-text-outline-color: rgb(255, 0, 0);
-    text-shadow: 0 0 0 rgb(255, 0, 0);
-    background-color: rgba(60, 60, 60, 0);
-    border-left-color: rgb(0, 0, 0);
-    border-right-color: rgb(0, 0, 0);
-    border-top-color: rgb(0, 0, 0);
-    border-bottom-color: rgb(0, 0, 0);
+#HealthBar #unity-progress-bar .unity-progress-bar__progress {
+    -unity-background-image-tint-color: rgb(255, 0, 0);
+    background-color: rgb(255, 0, 0);
+    color: rgb(255, 255, 255);
 }
 
-#HealthBar {
+#HealthBar #unity-progress-bar.unity-progress-bar__container {
+    -unity-background-image-tint-color: rgb(255, 0, 0);
+    background-color: rgb(255, 0, 0);
+    width: 150%;
+    margin-top: 0;
+    height: 30%;
+    align-items: stretch;
+}
+
+.AtkBtn {
+    background-image: url('project://database/Assets/Textures/UI/UIButtons.png?fileID=-1544744540&guid=ab1eb421362440246b37805d8b4b034b&type=3#UIButtons_0');
     width: 15%;
-    top: 68%;
-    -unity-text-outline-color: rgba(0, 0, 0, 255);
     height: 15%;
-    left: 35%;
+    left: 60%;
+    top: 75%;
+    color: rgba(91, 91, 91, 0);
+    cursor: initial;
+    -unity-font-style: bold;
+}
+
+.AtkBtn:hover {
+    background-image: url('project://database/Assets/Textures/UI/UIButtons.png?fileID=-1210731430&guid=ab1eb421362440246b37805d8b4b034b&type=3#UIButtons_2');
+    width: 15%;
+    height: 15%;
+    left: 60%;
+    top: 75%;
+    color: rgba(91, 91, 91, 0);
+    cursor: initial;
+}
+
+.ItemButton {
+    background-image: url('project://database/Assets/Textures/UI/UIButtons.png?fileID=917201805&guid=ab1eb421362440246b37805d8b4b034b&type=3#UIButtons_1');
+    width: 15%;
+    height: 15%;
+    left: 80%;
+    top: 75%;
+    bottom: auto;
+    right: auto;
+    white-space: nowrap;
+    color: rgba(238, 238, 238, 0);
+    display: flex;
+    overflow: hidden;
+    visibility: visible;
+    position: absolute;
+}
+
+.ItemButton:hover {
+    background-image: url('project://database/Assets/Textures/UI/UIButtons.png?fileID=-1443839479&guid=ab1eb421362440246b37805d8b4b034b&type=3#UIButtons_3');
+    width: 15%;
+    height: 15%;
+    left: 80%;
+    top: 75%;
+    bottom: auto;
+    right: auto;
+    white-space: nowrap;
+    color: rgba(238, 238, 238, 0);
+    display: flex;
+    overflow: hidden;
+    visibility: visible;
+    position: absolute;
 }
