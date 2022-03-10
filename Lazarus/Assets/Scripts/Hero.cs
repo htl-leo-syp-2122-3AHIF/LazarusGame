@@ -6,20 +6,52 @@ public class Hero : MonoBehaviour
 {
     [SerializeField]
     private int SPEED = 2;
-    [SerializeField]
-    private int HEALTH = 2;
-    [SerializeField]
-    private int ATTACK = 2;
+    
     private Animator _anim;
     
     private Vector3 _movement;
- 
+    private int _health;
+    private int _strength;
+
+    public int Health
+    {
+        get
+        {
+            return _health;
+        }
+        set
+        {
+            if(value>0)
+            {
+                _health = value;
+            }
+            
+        }
+    }
+
+    public int Strenght
+    {
+        get
+        {
+            return _strength;
+        }
+        set
+        {
+           if(value>0)
+            {
+                _strength = value;
+            }
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         _anim = GetComponent<Animator>();
         _movement = Vector3.zero;
     }
+
+
 
     private void Update()
     {
