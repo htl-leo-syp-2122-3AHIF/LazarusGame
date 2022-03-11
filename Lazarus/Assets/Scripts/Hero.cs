@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,9 @@ public class Hero : MonoBehaviour
     private int SPEED = 2;
     
     private Animator _anim;
-    
+
+    [SerializeField]
+    private float _encounterStartNum = 20F;
     private Vector3 _movement;
     private int _health;
     private int _strength;
@@ -75,8 +78,24 @@ public class Hero : MonoBehaviour
             //change the values of the params in the animator
             _anim.SetFloat("changeX", _movement.x);
             _anim.SetFloat("changeY", _movement.y);
-        }
-        this.transform.Translate(_movement * SPEED* Time.deltaTime);
 
+            //change playerpos to new position
+            this.transform.Translate(_movement * SPEED * Time.deltaTime);
+
+            //random battle encounter
+            RandomBattle();
+        }
+
+    }
+
+    private void RandomBattle()
+    {
+        float random = Mathf.Round(UnityEngine.Random.Range(0F, 100F));
+        
+        if (random == _encounterStartNum)
+        {
+            gameObject.SetActive(false);
+            Debug.Log("Start Battle");
+        }
     }
 }
