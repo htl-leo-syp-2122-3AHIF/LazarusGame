@@ -2,17 +2,19 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class Hero : MonoBehaviour
 {
     [SerializeField]
-    private int SPEED = 2;
-    
-    private Animator _anim;
-
+    private int SPEED =1000 ;
     [SerializeField]
     private float _encounterStartNum = 20F;
+
+    private Animator _anim;
     private Vector3 _movement;
+    
     private int _health;
     private int _strength;
 
@@ -50,52 +52,58 @@ public class Hero : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        DontDestroyOnLoad(this.gameObject);
         _anim = GetComponent<Animator>();
-        _movement = Vector3.zero;
+        
     }
 
 
 
-    private void Update()
-    {
-        _movement = Vector3.zero;
-    }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        Move();
+        if (_movement != Vector3.zero)
+        {
+            Move();
+        }
+        
+
     }
 
     private void Move()
     {
-        _movement.x = Input.GetAxis("Horizontal");
-        _movement.y = Input.GetAxis("Vertical");
-
-        if (_movement != Vector3.zero)// to safe it for the idle direction
+        //change the values of the params in the animator
+        _anim.SetFloat("changeX", _movement.x);
+        _anim.SetFloat("changeY", _movement.y);
+        if(-_movement!=Vector3.zero)
         {
-
-            //change the values of the params in the animator
-            _anim.SetFloat("changeX", _movement.x);
-            _anim.SetFloat("changeY", _movement.y);
-
-            //change playerpos to new position
-            this.transform.Translate(_movement * SPEED * Time.deltaTime);
-
-            //random battle encounter
-            RandomBattle();
+            _anim.SetFloat("lookAtX", _movement.x);
+            _anim.SetFloat("lookAtY", _movement.y);
         }
+
+        //change playerpos to new position
+        this.transform.Translate(_movement * SPEED * Time.deltaTime);
+
+        //random battle encounter
+        RandomBattle();
+        
 
     }
 
     private void RandomBattle()
     {
-        float random = Mathf.Round(UnityEngine.Random.Range(0F, 100F));
+        float random = Mathf.Round(UnityEngine.Random.Range(0F, 1000F));
         
         if (random == _encounterStartNum)
         {
-            gameObject.SetActive(false);
-            Debug.Log("Start Battle");
+            this.gameObject.SetActive(false);
+            SceneManager.LoadScene("Battle");
         }
+    }
+
+    public void MoveInput(InputAction.CallbackContext context)
+    {
+        _movement = context.ReadValue<Vector2>() ;
     }
 }

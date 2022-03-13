@@ -4,37 +4,36 @@ using UnityEngine;
 using BattleUIController;
 public enum States
 {
-    Start,
+    
     Player,
     Enemy
 }
 public class GameManager : MonoBehaviour
 {
     
-    public Hero player;
-    public States currState;
-    BattleUI uiController;
+    public Hero _player;
+    public States _currState;
+    BattleUI _uiController;
     // Start is called before the first frame update
     void Start()
     {
-        currState = States.Start;
-        uiController = FindObjectOfType<BattleUI>();
-        uiController.AttackButton.clicked += Attack;
-        uiController.ItemButton.clicked += Items;
-        uiController.HealthBar.highValue = player.Health;
-        uiController.ChangeHealthBarProgress( player.Health);
-        uiController.SetPlayerName("DEMO");
-        uiController.SetDialogue("Das ist ein Test");
+        _currState = States.Player;
+        _uiController = FindObjectOfType<BattleUI>();
+        _player = FindObjectOfType<Hero>();
+        _uiController.AttackButton.clicked += Attack;
+        _uiController.ItemButton.clicked += Items;
+        _uiController.HealthBar.highValue = _player.Health;
+        _uiController.ChangeHealthBarProgress( _player.Health);
     }
 
     // Update is called once per frame
     void Update()
     {
-        switch(currState)
+        switch(_currState)
         {
-            case States.Start: break; 
             case States.Player:break;
             case States.Enemy:break;
+
         }
     }
     public void Attack()

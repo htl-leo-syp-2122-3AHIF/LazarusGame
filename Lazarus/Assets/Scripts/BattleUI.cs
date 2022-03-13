@@ -33,7 +33,7 @@ namespace BattleUIController
             playerName = root.Q<Label>("PlayerName");
             dialogueText = root.Q<Label>("Dialogue");
             DialogueWindow = root.Q<VisualElement>("DialogueWindow");
-
+            
         }
         
         public void SetDialogue(string text)
