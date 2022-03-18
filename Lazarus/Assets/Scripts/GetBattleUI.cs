@@ -7,7 +7,7 @@ using System;
 using System.Threading;
 namespace BattleUIController
 {
-    public class BattleUI : MonoBehaviour
+    public class GetBattleUI
     {
         private Button attackButton;
         private Button itemButton;
@@ -24,9 +24,9 @@ namespace BattleUIController
         public VisualElement DialogueWindow { get => dialogueWindow; set => dialogueWindow = value; }
 
         // Start is called before the first frame update
-        void Start()
+        public GetBattleUI()
         {
-            var root = GetComponent<UIDocument>().rootVisualElement;
+            var root = GameObject.FindGameObjectWithTag("UI").GetComponent<UIDocument>().rootVisualElement;
             AttackButton = root.Q<Button>("AttackBtn");
             ItemButton = root.Q<Button>("ItemBtn");
             healthBar = root.Q<ProgressBar>("HealthBar");
@@ -42,7 +42,7 @@ namespace BattleUIController
         }
         public void ChangeHealthBarProgress(float value)
         {
-            HealthBar.value = value;
+            HealthBar.lowValue = value;
         }
         public void SetPlayerName(string name)
         {

@@ -10,20 +10,24 @@ public enum States
 }
 public class GameManager : MonoBehaviour
 {
-    
-    public Hero _player;
-    public States _currState;
-    BattleUI _uiController;
+    private const string BATTLE_PATH = "/Saves/BattleSave.laz";
+
+
+    private States _currState;
+    private PlayerStats _playerStats;
+    GetBattleUI _uiController;
     // Start is called before the first frame update
     void Start()
     {
+        _playerStats = SaveLoadSystem.LoadGameData(BATTLE_PATH);
+        _uiController = new GetBattleUI();
         _currState = States.Player;
-        _uiController = FindObjectOfType<BattleUI>();
-        _player = FindObjectOfType<Hero>();
-        _uiController.AttackButton.clicked += Attack;
+        _uiController.HealthBar.highValue = _playerStats.MaxHealth;
+        _uiController.ChangeHealthBarProgress(_playerStats.Health);
+        
+        _uiController.AttackButton.clicked+=Attack;
         _uiController.ItemButton.clicked += Items;
-        _uiController.HealthBar.highValue = _player.Health;
-        _uiController.ChangeHealthBarProgress( _player.Health);
+        
     }
 
     // Update is called once per frame
@@ -31,9 +35,12 @@ public class GameManager : MonoBehaviour
     {
         switch(_currState)
         {
-            case States.Player:break;
-            case States.Enemy:break;
-
+            case States.Player:
+                _currState = States.Enemy ;
+                break;
+            case States.Enemy:
+                _currState = States.Player;
+                break;
         }
     }
     public void Attack()

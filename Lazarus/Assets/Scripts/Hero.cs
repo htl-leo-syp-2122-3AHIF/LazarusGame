@@ -8,53 +8,30 @@ using UnityEngine.SceneManagement;
 public class Hero : MonoBehaviour
 {
     [SerializeField]
-    private int SPEED =1000 ;
+    private int SPEED =3 ;
     [SerializeField]
     private float _encounterStartNum = 20F;
 
+    private const string BATTLE_PATH = "/Saves/BattleSave.laz";
+
+
     private Animator _anim;
     private Vector3 _movement;
+    private PlayerStats _playerStats;
     
-    private int _health;
-    private int _strength;
-
-    public int Health
-    {
-        get
-        {
-            return _health;
-        }
-        set
-        {
-            if(value>0)
-            {
-                _health = value;
-            }
-            
-        }
-    }
-
-    public int Strenght
-    {
-        get
-        {
-            return _strength;
-        }
-        set
-        {
-           if(value>0)
-            {
-                _strength = value;
-            }
-        }
-    }
-
+    
+     
+    
     // Start is called before the first frame update
     void Start()
     {
-        DontDestroyOnLoad(this.gameObject);
+        _playerStats = SaveLoadSystem.LoadGameData(BATTLE_PATH);
+        if(_playerStats==null)
+        {
+           _playerStats = new PlayerStats();
+        }
         _anim = GetComponent<Animator>();
-        
+        _movement = Vector3.zero;
     }
 
 
@@ -63,41 +40,35 @@ public class Hero : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (_movement != Vector3.zero)
-        {
-            Move();
-        }
-        
-
+        Move();
     }
 
     private void Move()
     {
-        //change the values of the params in the animator
         _anim.SetFloat("changeX", _movement.x);
         _anim.SetFloat("changeY", _movement.y);
-        if(-_movement!=Vector3.zero)
+        //change the values of the params in the animator
+            
+        if (_movement != Vector3.zero)
         {
             _anim.SetFloat("lookAtX", _movement.x);
             _anim.SetFloat("lookAtY", _movement.y);
+
+            //random battle encounter
+            RandomBattle();
         }
 
         //change playerpos to new position
         this.transform.Translate(_movement * SPEED * Time.deltaTime);
-
-        //random battle encounter
-        RandomBattle();
-        
-
     }
 
     private void RandomBattle()
     {
-        float random = Mathf.Round(UnityEngine.Random.Range(0F, 1000F));
+        float random = Mathf.Round(UnityEngine.Random.Range(0F, 100F));
         
         if (random == _encounterStartNum)
         {
-            this.gameObject.SetActive(false);
+            SaveLoadSystem.SaveGame(_playerStats, BATTLE_PATH);
             SceneManager.LoadScene("Battle");
         }
     }
