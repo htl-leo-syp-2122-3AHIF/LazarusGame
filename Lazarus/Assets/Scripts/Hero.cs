@@ -19,9 +19,6 @@ public class Hero : MonoBehaviour
     private Vector3 _movement;
     private PlayerStats _playerStats;
     
-    
-     
-    
     // Start is called before the first frame update
     void Start()
     {

@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using BattleUIController;
+using UnityEngine.UIElements;
+
 public enum States
 {
     
@@ -12,21 +13,41 @@ public class GameManager : MonoBehaviour
 {
     private const string BATTLE_PATH = "/Saves/BattleSave.laz";
 
-
     private States _currState;
     private PlayerStats _playerStats;
-    GetBattleUI _uiController;
+    VisualElement _uiElements;
+    private Button _attackButton;
+    private Button _itemButton;
+    private ProgressBar _healthBar;
+    private Label _playerName;
+    private Label _dialogeText;
+    private VisualElement _dialogueWindow;
+
+    public Button AttackButton { get => _attackButton; set => _attackButton = value; }
+    public Button ItemButton { get => _itemButton; set => _itemButton = value; }
+    public ProgressBar HealthBar { get => _healthBar; }
+    public Label PlayerName { get => _playerName; }
+    public Label DialogueText { get => _dialogeText; set => _dialogeText = value; }
+    public VisualElement DialogueWindow { get => _dialogueWindow; set => _dialogueWindow = value; }
+    
     // Start is called before the first frame update
     void Start()
     {
         _playerStats = SaveLoadSystem.LoadGameData(BATTLE_PATH);
-        _uiController = new GetBattleUI();
+        _uiElements = UI.GetAllUIElements("BattleUI");
         _currState = States.Player;
-        _uiController.HealthBar.highValue = _playerStats.MaxHealth;
-        _uiController.ChangeHealthBarProgress(_playerStats.Health);
-        
-        _uiController.AttackButton.clicked+=Attack;
-        _uiController.ItemButton.clicked += Items;
+        AttackButton = _uiElements.Q<Button>("AttackBtn");
+        ItemButton = _uiElements.Q<Button>("ItemBtn");
+        _healthBar = _uiElements.Q<ProgressBar>("HealthBar");
+        _playerName = _uiElements.Q<Label>("PlayerName");
+        DialogueText = _uiElements.Q<Label>("Dialogue");
+        DialogueWindow = _uiElements.Q<VisualElement>("DialogueWindow");
+        HealthBar.highValue = _playerStats.Health;
+        HealthBar.lowValue = 0;
+        HealthBar.SetValueWithoutNotify(_playerStats.Health);
+        AttackButton.clicked+=Attack;
+        ItemButton.clicked += Items;
+
         
     }
 
@@ -37,6 +58,7 @@ public class GameManager : MonoBehaviour
         {
             case States.Player:
                 _currState = States.Enemy ;
+                
                 break;
             case States.Enemy:
                 _currState = States.Player;
@@ -46,10 +68,16 @@ public class GameManager : MonoBehaviour
     public void Attack()
     {
         Debug.Log("AttackTest");
+
+        
     }
     public void Items()
     {
         Debug.Log("ItemTest");
     }
-
+    public void ChangeHealth(int value)
+    {
+        HealthBar.SetValueWithoutNotify(_playerStats.Health-value);
+        _playerStats.Health=(int)HealthBar.value;
+    }
 }
