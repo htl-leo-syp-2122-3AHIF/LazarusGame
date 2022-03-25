@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
     {
         _playerStats = SaveLoadSystem.LoadGameData(BATTLE_PATH);
         _uiElements = UI.GetAllUIElements("BattleUI");
+        
         _currState = States.Player;
         AttackButton = _uiElements.Q<Button>("AttackBtn");
         ItemButton = _uiElements.Q<Button>("ItemBtn");
