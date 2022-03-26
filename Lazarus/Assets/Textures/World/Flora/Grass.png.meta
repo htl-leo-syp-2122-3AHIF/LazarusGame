@@ -253,6 +253,48 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Grass_6
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26618436c53f9f140bd8bca2c72abfc7
+      internalID: -1770205126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grass_7
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd70e2a749c9a6c4ab045a71006a2f7a
+      internalID: 1178469754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -268,7 +310,9 @@ TextureImporter:
       Grass_0: 47020479
       Grass_2: -623425347
       Grass_1: 1933094105
+      Grass_6: -1770205126
       Grass_3: -1401160409
+      Grass_7: 1178469754
       Grass_4: -1876414305
   spritePackingTag: 
   pSDRemoveMatte: 0
