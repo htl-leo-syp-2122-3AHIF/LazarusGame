@@ -270,6 +270,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "NavigateMenu",
+                    "type": "Button",
+                    "id": "fb8e0a38-ff10-4293-81ca-8c8651ce4886",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "Submit",
                     "type": "Button",
                     "id": "b03632b9-882f-452e-b907-1f00cc4a83a4",
@@ -847,6 +856,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "NavRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "66e8cc4b-e8a7-4c25-b1fc-035789dc820d",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "NavigateMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

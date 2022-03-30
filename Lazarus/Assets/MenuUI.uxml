@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Assets/MenuStyle.uss?fileID=7433441132597879392&amp;guid=f6ae10c4225cc3445bc536b5fd62f397&amp;type=3#MenuStyle" />
+    <ui:VisualElement name="tabs">
+        <ui:Label text="Label" display-tooltip-when-elided="true" name="TestTab" class="tab" />
+    </ui:VisualElement>
+    <ui:VisualElement name="tabContent">
+        <ui:Label text="Label" display-tooltip-when-elided="true" name="TestContent" class="currentlySelectedTab" />
+    </ui:VisualElement>
+</ui:UXML>

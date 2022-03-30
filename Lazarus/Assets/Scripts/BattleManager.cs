@@ -9,7 +9,7 @@ public enum States
     Player,
     Enemy
 }
-public class GameManager : MonoBehaviour
+public class BattleManager : MonoBehaviour
 {
     private const string BATTLE_PATH = "/Saves/BattleSave.laz";
 

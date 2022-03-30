@@ -13,6 +13,7 @@ public class Hero : MonoBehaviour
     private float _encounterStartNum = 20F;
 
     private const string BATTLE_PATH = "/Saves/BattleSave.laz";
+    private const string SAVE_PATH = "/Saves/Save.laz";
 
 
     private Animator _anim;
