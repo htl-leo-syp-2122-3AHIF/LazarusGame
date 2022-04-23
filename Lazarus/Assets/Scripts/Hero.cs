@@ -10,7 +10,7 @@ public class Hero : MonoBehaviour
     [SerializeField]
     private int SPEED =3 ;
     [SerializeField]
-    private float _encounterStartNum = 20F;
+    private float ENCOUNTER_START_NUM = 20F;
 
     private const string BATTLE_PATH = "/Saves/BattleSave.laz";
     private const string SAVE_PATH = "/Saves/Save.laz";
@@ -64,7 +64,7 @@ public class Hero : MonoBehaviour
     {
         float random = Mathf.Round(UnityEngine.Random.Range(0F, 10000F));
         
-        if (random == _encounterStartNum)
+        if (random == ENCOUNTER_START_NUM)
         {
             SaveLoadSystem.SaveGame(_playerStats, BATTLE_PATH);
             SceneManager.LoadScene("Battle");
