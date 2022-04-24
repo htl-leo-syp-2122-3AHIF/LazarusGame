@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public enum States
@@ -23,6 +24,7 @@ public class BattleManager : MonoBehaviour
     private Label _dialogeText;
     private VisualElement _dialogueWindow;
 
+    public States CurrState { get => _currState; set => _currState = value; }
     public Button AttackButton { get => _attackButton; set => _attackButton = value; }
     public Button ItemButton { get => _itemButton; set => _itemButton = value; }
     public ProgressBar HealthBar { get => _healthBar; }
@@ -30,6 +32,7 @@ public class BattleManager : MonoBehaviour
     public Label DialogueText { get => _dialogeText; set => _dialogeText = value; }
     public VisualElement DialogueWindow { get => _dialogueWindow; set => _dialogueWindow = value; }
     
+
     // Start is called before the first frame update
     void Start()
     {
@@ -55,26 +58,18 @@ public class BattleManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch(_currState)
-        {
-            case States.Player:
-                _currState = States.Enemy ;
-                
-                break;
-            case States.Enemy:
-                _currState = States.Player;
-                break;
-        }
+        
     }
     public void Attack()
     {
         Debug.Log("AttackTest");
+        _currState = States.Enemy;
 
-        
     }
     public void Items()
     {
         Debug.Log("ItemTest");
+        _currState = States.Enemy;
     }
     public void ChangeHealth(int value)
     {

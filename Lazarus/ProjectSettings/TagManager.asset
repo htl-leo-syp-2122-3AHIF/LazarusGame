@@ -8,6 +8,9 @@ TagManager:
   - BattleUI
   - Food
   - Snake
+  - SnakeGame
+  - Wall
+  - SnakeSegment
   - Obstacle
   layers:
   - Default

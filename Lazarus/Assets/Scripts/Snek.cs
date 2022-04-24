@@ -10,6 +10,8 @@ public class Snek : MonoBehaviour
     [SerializeField]
     private Transform segmentPrefab;
 
+    private bool _notFirstCollision;
+    private BattleManager _battleManager;
     private Vector2 _direction;
     private float _lastMove;
     private List<Transform> _segments;
@@ -20,6 +22,8 @@ public class Snek : MonoBehaviour
         _direction = Vector2.right;
         _segments = new List<Transform>();
         _segments.Add(this.transform);
+        _battleManager = (BattleManager)GameObject.Find("GameManager").GetComponent("BattleManager");
+        _notFirstCollision = false;
     }
 
     private void Update()
@@ -65,25 +69,34 @@ public class Snek : MonoBehaviour
 
     private void Grow()
     {
+        Vector3 lastPos = _segments[_segments.Count - 1].position;
         Transform segment = Instantiate(this.segmentPrefab);
-        segment.position = _segments[_segments.Count - 1].position;
+        segment.position = lastPos;
         _segments.Add(segment);
+        
     }
     private void StopMinigame()
     {
-        // Points -> 
-        Debug.Log("To do: JULIAN MACH DAS");
+        foreach (Transform segment in _segments)
+        {
+            Destroy(segment.gameObject);
+        }
+        _battleManager.CurrState = States.Player;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log(collision.tag);
         if (collision.tag == "Food")
         {
             Grow();
             _points++;
-        } else if (collision.tag == "Obstacle")
+        } else if (collision.tag == "Wall" || collision.tag == "SnakeSegment" && _notFirstCollision)
         {
             StopMinigame();
+        } else if (collision.tag == "SnakeSegment" && !_notFirstCollision)
+        {
+            _notFirstCollision = true;
         }
     }
 
