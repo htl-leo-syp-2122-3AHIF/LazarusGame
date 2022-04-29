@@ -12,6 +12,10 @@ TagManager:
   - Wall
   - SnakeSegment
   - Obstacle
+  - FruitGame
+  - LeftWallCatch
+  - RightWallCatch
+  - Fruit
   layers:
   - Default
   - TransparentFX

@@ -17,8 +17,11 @@ public class Snek : MonoBehaviour
     private List<Transform> _segments;
     private float _points;
 
+    public float Points { get => _points; set => _points = value; }
+
     private void Start()
     {
+        _points = 0;
         _direction = Vector2.right;
         _segments = new List<Transform>();
         _segments.Add(this.transform);
