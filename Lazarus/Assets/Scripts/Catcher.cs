@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class Catcher : MonoBehaviour
 {
-    private bool _moveAllowed;
+    private bool _moveAllowedLeft;
+    private bool _moveAllowedRight;
     [SerializeField]
     private BoxCollider2D _gridArea;
     [SerializeField]
@@ -17,18 +18,25 @@ public class Catcher : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _moveAllowed = true;
+        _moveAllowedLeft = true;
+        _moveAllowedRight = true;
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        if (transform.position.x >= -19 | transform.position.x <= 19)
         {
-            Move("a");
-        } else if (Input.GetKeyDown(KeyCode.D))
-        {
-            Move("d");
+            if (Input.GetKey(KeyCode.A) && _moveAllowedLeft)
+            {
+                Move("a");
+                _moveAllowedRight = true;
+            }
+            else if (Input.GetKey(KeyCode.D) && _moveAllowedRight)
+            {
+                Move("d");
+                _moveAllowedLeft = true;
+            }
         }
     }
 
@@ -47,10 +55,8 @@ public class Catcher : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "LeftWallCatch")
-        {
-            _moveAllowed = false;
-        } else if (collision.tag == "Fruit")
+
+        if (collision.tag == "Fruit")
         {
             _points++;
         }
