@@ -16,6 +16,7 @@ TagManager:
   - LeftWallCatch
   - RightWallCatch
   - Fruit
+  - Catcher
   layers:
   - Default
   - TransparentFX

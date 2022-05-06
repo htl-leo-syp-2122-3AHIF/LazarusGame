@@ -6,10 +6,19 @@ public class Fruit : MonoBehaviour
 {
     [SerializeField]
     private BoxCollider2D _gridArea;
+    [SerializeField]
+    private Rigidbody2D _rigidbody;
+    [SerializeField]
+    private int SPEED = 10;
 
     private void Start()
     {
         RandomizePosition();
+    }
+
+    private void FixedUpdate()
+    {
+        _rigidbody.velocity = (Vector3.Normalize(_rigidbody.velocity) * SPEED);
     }
 
     private void RandomizePosition()
@@ -25,7 +34,7 @@ public class Fruit : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("Collision with: " + collision.tag);
-        if (collision.tag == "Catcher")
+        if (collision.tag != "Untagged")
             RandomizePosition();
     }
 }

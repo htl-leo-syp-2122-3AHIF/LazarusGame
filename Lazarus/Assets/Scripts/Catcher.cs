@@ -5,38 +5,35 @@ using UnityEngine;
 
 public class Catcher : MonoBehaviour
 {
-    private bool _moveAllowedLeft;
-    private bool _moveAllowedRight;
     [SerializeField]
-    private BoxCollider2D _gridArea;
-    [SerializeField]
-    private float SPEED = 3;
+    private float SPEED = 40;
     private float _points;
+    private Vector3 _direction;
+    private bool _moveLeftRestrict;
+    private bool _moveRightRestrict;
 
     public float Points { get => _points; set => _points = value; }
 
     // Start is called before the first frame update
     void Start()
     {
-        _moveAllowedLeft = true;
-        _moveAllowedRight = true;
+        _moveLeftRestrict = false;
+        _moveRightRestrict = false;
+        _direction = Vector3.zero;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (transform.position.x >= -19 | transform.position.x <= 19)
+        if (Input.GetKey(KeyCode.A) && !_moveLeftRestrict)
         {
-            if (Input.GetKey(KeyCode.A) && _moveAllowedLeft)
-            {
-                Move("a");
-                _moveAllowedRight = true;
-            }
-            else if (Input.GetKey(KeyCode.D) && _moveAllowedRight)
-            {
-                Move("d");
-                _moveAllowedLeft = true;
-            }
+            _moveRightRestrict = false;
+            Move("a");
+        }
+        else if (Input.GetKey(KeyCode.D) && !_moveRightRestrict)
+        {
+            _moveLeftRestrict = false;
+            Move("d");
         }
     }
 
@@ -55,10 +52,20 @@ public class Catcher : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
+        Debug.Log($"Collision with {collision.tag}");
         if (collision.tag == "Fruit")
         {
             _points++;
+        }
+        else if (collision.tag == "LeftWallCatch")
+        {
+            _moveLeftRestrict = true;
+            transform.position = new(Mathf.RoundToInt(transform.position.x), transform.position.y, 0);
+        }
+        else if (collision.tag == "RightWallCatch") 
+        {
+            _moveRightRestrict = true; 
+            transform.position = new(Mathf.RoundToInt(transform.position.x), transform.position.y, 0);
         }
     }
 }
