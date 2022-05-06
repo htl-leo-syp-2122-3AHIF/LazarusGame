@@ -17,6 +17,7 @@ TagManager:
   - RightWallCatch
   - Fruit
   - Catcher
+  - Enemy
   layers:
   - Default
   - TransparentFX

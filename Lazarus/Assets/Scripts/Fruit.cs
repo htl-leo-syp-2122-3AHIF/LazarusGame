@@ -10,10 +10,13 @@ public class Fruit : MonoBehaviour
     private Rigidbody2D _rigidbody;
     [SerializeField]
     private int SPEED = 10;
+    private BattleManager _battleManager;
 
     private void Start()
     {
         RandomizePosition();
+        _battleManager = (BattleManager)GameObject.Find("GameManager").GetComponent("BattleManager");
+
     }
 
     private void FixedUpdate()
@@ -34,7 +37,12 @@ public class Fruit : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("Collision with: " + collision.tag);
-        if (collision.tag != "Untagged")
+        if (collision.tag == "Catcher")
+        {
             RandomizePosition();
+        } else if (collision.tag == "Wall")
+        {
+            _battleManager.CurrState = States.Player;
+        }
     }
 }

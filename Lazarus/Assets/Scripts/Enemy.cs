@@ -1,10 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public enum MiniGameType
 {
-    SnakeGame
+    SnakeGame,
+    FruitGame
 }
 
 public class Enemy : MonoBehaviour
@@ -19,7 +21,14 @@ public class Enemy : MonoBehaviour
     {
         // For testing purposes we use SNAKE
         _miniGameActive = false;
-        _miniGameType = MiniGameType.SnakeGame; // Multiple Enemies -> GetArea -> CheckEnemiesInArea -> Randomize which enemy gets selected
+        foreach (MiniGameType miniGameType in Enum.GetValues(typeof(MiniGameType)))
+        {
+            if (miniGameType.ToString() == GameObject.Find("Enemy").tag)
+            {
+                _miniGameType = miniGameType;
+                break;
+            }
+        }
         _miniGame = GetMinigame(_miniGameType);
         _battleManager = (BattleManager) GameObject.Find("GameManager").GetComponent("BattleManager");
     }
