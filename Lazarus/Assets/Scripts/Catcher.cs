@@ -8,7 +8,6 @@ public class Catcher : MonoBehaviour
     [SerializeField]
     private float SPEED = 40;
     private float _points;
-    private Vector3 _direction;
     private bool _moveLeftRestrict;
     private bool _moveRightRestrict;
 
@@ -19,7 +18,6 @@ public class Catcher : MonoBehaviour
     {
         _moveLeftRestrict = false;
         _moveRightRestrict = false;
-        _direction = Vector3.zero;
     }
 
     // Update is called once per frame
