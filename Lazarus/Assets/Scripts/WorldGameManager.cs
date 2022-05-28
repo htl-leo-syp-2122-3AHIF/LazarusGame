@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -22,7 +23,6 @@ public class WorldGameManager : MonoBehaviour
 
     public void MenuInput(InputAction.CallbackContext context)
     {
-        Debug.Log("Test");
-        
+        _rootElement = UI.GetAllUIElements("UI");
     }
 }

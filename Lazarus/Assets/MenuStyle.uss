@@ -7,24 +7,22 @@
     font-size: 14px;
 }
 
-/* Sets each label in tabs to have the same size. */
 .tab {
     flex-grow: 1;
+    background-color: rgba(96, 96, 96, 255);
 }
 
-/* Adds background color for the selected tab */
 .currentlySelectedTab {
     background-color: rgb(173, 166, 166);
 }
 
-/* Style for tabContent */
 #tabContent {
     flex-basis: 90%;
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(166, 146, 146);
     font-size: 20px;
 }
 
-/* Hides the unselected tab content */
 .unselectedContent {
     display: none;
+    background-color: rgba(132, 132, 132, 255);
 }
