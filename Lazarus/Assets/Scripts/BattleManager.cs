@@ -6,7 +6,6 @@ using UnityEngine.UIElements;
 
 public enum States
 {
-    
     Player,
     Enemy
 }
@@ -38,7 +37,6 @@ public class BattleManager : MonoBehaviour
     {
         _playerStats = SaveLoadSystem.LoadGameData(BATTLE_PATH);
         _uiElements = UI.GetAllUIElements("BattleUI");
-        
         _currState = States.Player;
         AttackButton = _uiElements.Q<Button>("AttackBtn");
         ItemButton = _uiElements.Q<Button>("ItemBtn");
@@ -51,8 +49,7 @@ public class BattleManager : MonoBehaviour
         HealthBar.SetValueWithoutNotify(_playerStats.Health);
         AttackButton.clicked+=Attack;
         ItemButton.clicked += Items;
-
-        
+        PlayerName.text = "Name: "+_playerStats.Name;
     }
 
     // Update is called once per frame
@@ -71,9 +68,17 @@ public class BattleManager : MonoBehaviour
         Debug.Log("ItemTest");
         _currState = States.Enemy;
     }
+
     public void ChangeHealth(int value)
     {
         HealthBar.SetValueWithoutNotify(_playerStats.Health-value);
         _playerStats.Health=(int)HealthBar.value;
     }
+
+    private void OnDestroy()
+    {
+        Debug.Log("Test");
+        SaveLoadSystem.SaveGame(_playerStats, Const.BATTLE_PATH);
+    }
+
 }

@@ -12,10 +12,6 @@ public class Hero : MonoBehaviour
     [SerializeField]
     private float ENCOUNTER_START_NUM = 20F;
 
-    private const string BATTLE_PATH = "/Saves/BattleSave.laz";
-    private const string SAVE_PATH = "/Saves/Save.laz";
-
-
     private Animator _anim;
     private Vector3 _movement;
     private PlayerStats _playerStats;
@@ -23,17 +19,10 @@ public class Hero : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _playerStats = SaveLoadSystem.LoadGameData(BATTLE_PATH);
-        if(_playerStats==null)
-        {
-           _playerStats = new PlayerStats();
-        }
+        _playerStats = Const.GetPlayerStatsFromPermanentSave();
         _anim = GetComponent<Animator>();
         _movement = Vector3.zero;
     }
-
-
-
 
     // Update is called once per frame
     void FixedUpdate()
@@ -66,7 +55,7 @@ public class Hero : MonoBehaviour
         
         if (random == ENCOUNTER_START_NUM)
         {
-            SaveLoadSystem.SaveGame(_playerStats, BATTLE_PATH);
+            SaveLoadSystem.SaveGame(_playerStats, Const.BATTLE_PATH);
             SceneManager.LoadScene("Battle");
         }
     }

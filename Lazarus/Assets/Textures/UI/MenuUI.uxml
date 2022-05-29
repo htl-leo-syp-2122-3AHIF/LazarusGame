@@ -1,0 +1,19 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Assets/MenuStyle.uss?fileID=7433441132597879392&amp;guid=f6ae10c4225cc3445bc536b5fd62f397&amp;type=3#MenuStyle" />
+    <ui:VisualElement name="tabs" style="opacity: 1; background-color: rgba(53, 53, 53, 0.45);">
+        <ui:Label text="Stats" display-tooltip-when-elided="true" name="statsTab" class="tab currentlySelectedTab" />
+        <ui:Label text="Inventory" display-tooltip-when-elided="true" name="inventoryTab" class="tabs tab" />
+        <ui:Button text="Save" display-tooltip-when-elided="true" name="SaveBtn" enable-rich-text="false" />
+    </ui:VisualElement>
+    <ui:VisualElement name="tabContent" style="opacity: 1; background-color: rgba(0, 0, 0, 0.25); height: 546px; -unity-background-image-tint-color: rgb(255, 255, 255); -unity-background-scale-mode: stretch-to-fill;">
+        <ui:Label display-tooltip-when-elided="true" name="statsContent" class="tabContent">
+            <ui:Label text="HP:" display-tooltip-when-elided="true" name="HealthPoints" class="statName" style="width: 50px;" />
+            <ui:Label text="0" display-tooltip-when-elided="true" name="HealthPointsValue" class="statValue" style="position: relative; overflow: visible; flex-direction: column;" />
+            <ui:Label text="AD: " display-tooltip-when-elided="true" name="AttackDamage" class="valueDescription statName" style="width: 50px;" />
+            <ui:Label text="0" display-tooltip-when-elided="true" name="AttackDamageValue" class="statValue" style="position: relative; margin-left: 200px; margin-bottom: 0; padding-bottom: 0;" />
+            <ui:Label text="CD: " display-tooltip-when-elided="true" name="CritDamage" class="valueDescription statName" style="width: 50px;" />
+            <ui:Label text="0" display-tooltip-when-elided="true" name="CritDamageValue" class="statValue" />
+        </ui:Label>
+        <ui:Label display-tooltip-when-elided="true" name="inventoryContent" class="tabContent" />
+    </ui:VisualElement>
+</ui:UXML>

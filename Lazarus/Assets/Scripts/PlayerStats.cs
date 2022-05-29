@@ -7,10 +7,11 @@ using UnityEngine;
 public class PlayerStats
 {
 
-    private const int DEF_MAX_HEALTH = 5;
+    private const int DEF_MAX_HEALTH = 15;
     private const int DEF_LEVEL = 1;
     private const int DEF_PLAYER_LEVEL = 1;
-    private const int DEF_ATTACK_DAMAGE = 5;
+    private const int DEF_ATTACK_DAMAGE = 10;
+    private const int DEF_CRIT_DAMAGE = 21;
     private const string DEF_NAME = "TEST";
 
     private int _health;
@@ -18,8 +19,8 @@ public class PlayerStats
     private string _name;
     private float[] _position;
     private int _attackDamage;
+    private int _critDamage;
     private int _playerLevel;
-    private int _level;
 
     public PlayerStats()
     {
@@ -27,9 +28,9 @@ public class PlayerStats
         MaxHealth = DEF_MAX_HEALTH;
         Name = DEF_NAME;
         AttackDamage = DEF_ATTACK_DAMAGE;
-        Level = DEF_LEVEL;
         PlayerLevel = DEF_PLAYER_LEVEL;
         Position = new float[] { 0, 0 };
+        _critDamage = DEF_CRIT_DAMAGE;
     }
 
     public PlayerStats(int health,string name, float[] position, int attackDamage,int playerLevel, int level)
@@ -39,7 +40,6 @@ public class PlayerStats
         Position = position;
         AttackDamage = attackDamage;
         PlayerLevel = playerLevel;
-        Level = level;
     }
 
     public int Health
@@ -108,17 +108,7 @@ public class PlayerStats
             _playerLevel = value;
         }
     }
-    public int Level
-    {
-        get
-        {
-            return _level;
-        }
-        set
-        {
-            _level = value;
-        }
-    }
 
 
+    public int CritDamage { get => _critDamage; set => _critDamage = value; }
 }

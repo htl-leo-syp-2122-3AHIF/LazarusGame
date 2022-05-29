@@ -1,0 +1,5 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:VisualElement name="DialogueWindow" style="background-image: url(&apos;project://database/Assets/Textures/UI/DialogueBar.png?fileID=21300000&amp;guid=b25c069634a74f84da5df82e25c86a75&amp;type=3#DialogueBar&apos;); width: 85%; height: 70%; position: absolute; left: 10%;">
+        <ui:Label display-tooltip-when-elided="true" name="Dialogue" enable-rich-text="true" style="position: relative; left: 3%; top: 15%; color: rgb(255, 255, 255); -unity-font: url(&apos;project://database/Library/unity%20default%20resources?fileID=10102&amp;guid=0000000000000000e000000000000000&amp;type=0#Arial&apos;); -unity-font-style: bold; font-size: 15px; overflow: visible; max-width: none; max-height: none; min-height: auto; min-width: auto; height: 75%; width: 94%; align-items: center; white-space: normal; flex-wrap: wrap;" />
+    </ui:VisualElement>
+</ui:UXML>
