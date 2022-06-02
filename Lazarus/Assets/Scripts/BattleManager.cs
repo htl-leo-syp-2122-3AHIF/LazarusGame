@@ -12,6 +12,7 @@ public enum States
 public class BattleManager : MonoBehaviour
 {
     private const string BATTLE_PATH = "/Saves/BattleSave.laz";
+    private const int CRIT_DAMAGE_CHANCE = 5;
 
     private States _currState;
     private PlayerStats _playerStats;
@@ -22,6 +23,8 @@ public class BattleManager : MonoBehaviour
     private Label _playerName;
     private Label _dialogeText;
     private VisualElement _dialogueWindow;
+    private Enemy _enemy;
+
 
     public States CurrState { get => _currState; set => _currState = value; }
     public Button AttackButton { get => _attackButton; set => _attackButton = value; }
@@ -35,7 +38,8 @@ public class BattleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _playerStats = SaveLoadSystem.LoadGameData(BATTLE_PATH);
+        _playerStats = Const.GetPlayerStatsFromTempSave();
+        
         _uiElements = UI.GetAllUIElements("BattleUI");
         _currState = States.Player;
         AttackButton = _uiElements.Q<Button>("AttackBtn");
@@ -50,6 +54,9 @@ public class BattleManager : MonoBehaviour
         AttackButton.clicked+=Attack;
         ItemButton.clicked += Items;
         PlayerName.text = "Name: "+_playerStats.Name;
+        _enemy = GameObject.Find("Enemy").GetComponent<Enemy>();
+        Debug.Log(_playerStats.Health);
+        ChangeHealth(5);
     }
 
     // Update is called once per frame
@@ -57,9 +64,25 @@ public class BattleManager : MonoBehaviour
     {
         
     }
+
     public void Attack()
     {
-        Debug.Log("AttackTest");
+        float random = Mathf.Round(UnityEngine.Random.Range(0F, 10F));
+        if(random==CRIT_DAMAGE_CHANCE)
+        {
+            _enemy.Health -= _playerStats.CritDamage;
+            _dialogeText.text = "Enemy took " + _playerStats.CritDamage + " Damage!";
+        }
+        else
+        {
+            _enemy.Health -= _playerStats.AttackDamage;
+            _dialogeText.text = "Enemy took " + _playerStats.AttackDamage + " Damage!";
+        }
+        if (_enemy.Health<=0)
+        {
+            SceneManager.LoadScene("World");
+
+        }
         _currState = States.Enemy;
 
     }
@@ -69,15 +92,15 @@ public class BattleManager : MonoBehaviour
         _currState = States.Enemy;
     }
 
-    public void ChangeHealth(int value)
+    public void ChangeHealth(float value)
     {
         HealthBar.SetValueWithoutNotify(_playerStats.Health-value);
-        _playerStats.Health=(int)HealthBar.value;
+        _playerStats.Health=HealthBar.value;
     }
 
     private void OnDestroy()
     {
-        Debug.Log("Test");
+        _playerStats.Health = HealthBar.value;
         SaveLoadSystem.SaveGame(_playerStats, Const.BATTLE_PATH);
     }
 

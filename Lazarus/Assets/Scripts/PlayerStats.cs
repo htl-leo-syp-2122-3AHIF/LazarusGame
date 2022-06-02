@@ -14,7 +14,7 @@ public class PlayerStats
     private const int DEF_CRIT_DAMAGE = 21;
     private const string DEF_NAME = "TEST";
 
-    private int _health;
+    private float _health;
     private int _maxHealth;
     private string _name;
     private float[] _position;
@@ -33,7 +33,7 @@ public class PlayerStats
         _critDamage = DEF_CRIT_DAMAGE;
     }
 
-    public PlayerStats(int health,string name, float[] position, int attackDamage,int playerLevel, int level)
+    public PlayerStats(float health,string name, float[] position, int attackDamage,int playerLevel, int level)
     {
         Health = health;
         Name = name;
@@ -42,7 +42,7 @@ public class PlayerStats
         PlayerLevel = playerLevel;
     }
 
-    public int Health
+    public float Health
     {
         get
         {

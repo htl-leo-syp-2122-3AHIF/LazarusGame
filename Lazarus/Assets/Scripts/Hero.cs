@@ -22,6 +22,7 @@ public class Hero : MonoBehaviour
         _playerStats = Const.GetPlayerStatsFromPermanentSave();
         _anim = GetComponent<Animator>();
         _movement = Vector3.zero;
+        
     }
 
     // Update is called once per frame
@@ -64,4 +65,5 @@ public class Hero : MonoBehaviour
     {
         _movement = context.ReadValue<Vector2>() ;
     }
+
 }

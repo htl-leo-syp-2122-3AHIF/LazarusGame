@@ -10,10 +10,7 @@ public class Const
     public static PlayerStats GetPlayerStatsFromTempSave()
     {
         PlayerStats playerStats = SaveLoadSystem.LoadGameData(BATTLE_PATH);
-        if (playerStats == null)
-        {
-           playerStats = new PlayerStats();
-        }
+
         return playerStats;
     }
     public static PlayerStats GetPlayerStatsFromPermanentSave()

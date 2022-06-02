@@ -19,6 +19,7 @@ TagManager:
   - Catcher
   - Enemy
   - MenuUI
+  - Teleporter
   layers:
   - Default
   - TransparentFX

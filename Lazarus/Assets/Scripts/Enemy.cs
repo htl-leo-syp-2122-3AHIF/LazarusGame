@@ -11,14 +11,33 @@ public enum MiniGameType
 
 public class Enemy : MonoBehaviour
 {
+    private const int MAX_HEALTH = 90;
+    private const int MIN_HEALTH = 70;
+    private const int MIN_DAMAGE = 2;
+    private const int MAX_DAMAGE = 4;
+    private const int CRIT_DAMAGE = 5;
+
     private MiniGameType _miniGameType;
     [SerializeField]
     private List<GameObject> _miniGames;
     private GameObject _miniGame;
     private BattleManager _battleManager;
     private bool _miniGameActive;
+    
+
+    private int _health;
+    private int _damage;
+
+
+    public int Health { get => _health; set => _health = value; }
+
+    public int Damage { get => _damage; }
+
+    public int CritDamage { get => CRIT_DAMAGE; }
     void Start()
     {
+        _health = UnityEngine.Random.Range(MIN_HEALTH, MAX_HEALTH);
+        _damage = UnityEngine.Random.Range(MIN_DAMAGE, MAX_DAMAGE);
         // For testing purposes we use SNAKE
         _miniGameActive = false;
         foreach (MiniGameType miniGameType in Enum.GetValues(typeof(MiniGameType)))
