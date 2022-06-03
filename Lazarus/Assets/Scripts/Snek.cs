@@ -16,11 +16,15 @@ public class Snek : MonoBehaviour
     private float _lastMove;
     private List<Transform> _segments;
     private float _points;
-
+    private float _startTime;
+    [SerializeField]
+    private float MAX_TIME = 10;
+    
     public float Points { get => _points; set => _points = value; }
 
     private void Start()
     {
+        _startTime = Time.time;
         _points = 0;
         _direction = Vector2.right;
         _segments = new List<Transform>();
@@ -31,6 +35,11 @@ public class Snek : MonoBehaviour
 
     private void Update()
     {
+        if (Time.time - _startTime > MAX_TIME)
+        {
+            _battleManager.CurrState = States.Player;
+        }
+
         if (Input.GetKeyDown(KeyCode.W))
         {
             _direction = Vector2.up;

@@ -566,7 +566,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gridArea: {fileID: 5060643681035793444}
   _rigidbody: {fileID: 5060643682396796981}
-  SPEED: 5
+  SPEED: 8
 --- !u!50 &5060643682396796981
 Rigidbody2D:
   serializedVersion: 4
@@ -834,6 +834,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SPEED: 15
+  MAX_TIME: 10
 --- !u!61 &8838616613001545252
 BoxCollider2D:
   m_ObjectHideFlags: 0

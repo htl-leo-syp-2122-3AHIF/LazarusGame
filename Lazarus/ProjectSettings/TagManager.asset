@@ -20,6 +20,11 @@ TagManager:
   - Enemy
   - MenuUI
   - Teleporter
+  - Bone
+  - BoneDodger
+  - TopWallCatch
+  - BottomWallCatch
+  - BoneZoneGame
   layers:
   - Default
   - TransparentFX

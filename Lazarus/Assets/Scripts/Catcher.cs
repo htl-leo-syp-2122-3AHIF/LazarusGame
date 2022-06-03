@@ -10,19 +10,30 @@ public class Catcher : MonoBehaviour
     private float _points;
     private bool _moveLeftRestrict;
     private bool _moveRightRestrict;
+    private BattleManager _battleManager;
+    private float _startTime;
+    [SerializeField]
+    private float MAX_TIME = 10;
 
     public float Points { get => _points; set => _points = value; }
 
     // Start is called before the first frame update
     void Start()
     {
+        _startTime = Time.time;
         _moveLeftRestrict = false;
         _moveRightRestrict = false;
+        _battleManager = (BattleManager)GameObject.Find("GameManager").GetComponent("BattleManager");
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (Time.time - _startTime > MAX_TIME)
+        {
+            _battleManager.CurrState = States.Player;
+        }
+
         if (Input.GetKey(KeyCode.A) && !_moveLeftRestrict)
         {
             _moveRightRestrict = false;
