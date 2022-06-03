@@ -62,12 +62,18 @@ TagManager:
   - name: Background
     uniqueID: 3049510021
     locked: 0
+  - name: PathAndFlora
+    uniqueID: 3093010365
+    locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Path
+    uniqueID: 3119673697
+    locked: 0
   - name: Player
     uniqueID: 506059537
     locked: 0
   - name: Utilities
     uniqueID: 179653631
-    locked: 0
-  - name: Default
-    uniqueID: 0
     locked: 0

@@ -16,12 +16,11 @@ public class WorldGameManager : MonoBehaviour
     void Start()
     {
 
-        _playerStats = Const.GetPlayerStatsFromTempSave() ;
+        _playerStats = Const.GetPlayerStatsFromTempSave(true) ;
         if(_playerStats ==null)
         {
             _playerStats = Const.GetPlayerStatsFromPermanentSave() ;
         }
-        SaveLoadSystem.SaveGame(_playerStats, Const.BATTLE_PATH);
         _menuUI = UI.GetAllUIElements("MenuUI");
         _menuUI.Q<Label>("HealthPointsValue").text=Convert.ToString(_playerStats.Health);
         _menuUI.Q<Label>("AttackDamageValue").text = Convert.ToString(_playerStats.AttackDamage);
@@ -36,12 +35,22 @@ public class WorldGameManager : MonoBehaviour
 
     private void EndGame()
     {
+        if(File.Exists(Application.dataPath+Const.BATTLE_PATH))
+        {
+            
+            File.Delete(Application.dataPath + Const.BATTLE_PATH);
+            File.Delete(Application.dataPath + Const.BATTLE_PATH + ".meta");
+        }
 
+        if (EditorApplication.isPlaying)
+        {
+            EditorApplication.isPlaying = false;
+        }
+        else
+        {
+            Application.Quit();
 
-        File.Delete( Application.dataPath+Const.BATTLE_PATH);
-        File.Delete(Application.dataPath + Const.BATTLE_PATH+".meta");
-
-        Application.Quit();
+        }
     }
 
 

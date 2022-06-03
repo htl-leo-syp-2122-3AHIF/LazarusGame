@@ -7,10 +7,10 @@ public class Const
     public const string BATTLE_PATH = "/Saves/BattleSave.laz";
     public const string SAVE_PATH = "/Saves/Save.laz";
 
-    public static PlayerStats GetPlayerStatsFromTempSave()
+    public static PlayerStats GetPlayerStatsFromTempSave(bool shouldCreateNew)
     {
         PlayerStats playerStats = SaveLoadSystem.LoadGameData(BATTLE_PATH);
-
+        if(shouldCreateNew&&playerStats==null) return playerStats;
         return playerStats;
     }
     public static PlayerStats GetPlayerStatsFromPermanentSave()
@@ -25,6 +25,6 @@ public class Const
 
     public static void SaveGameData()
     {
-        SaveLoadSystem.SaveGame(GetPlayerStatsFromTempSave(),SAVE_PATH);
+        SaveLoadSystem.SaveGame(GetPlayerStatsFromTempSave(false),SAVE_PATH);
     }
 }
