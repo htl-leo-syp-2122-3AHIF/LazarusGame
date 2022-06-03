@@ -508,7 +508,7 @@ GameObject:
   - component: {fileID: 3275976142436816698}
   m_Layer: 0
   m_Name: MinigameBone
-  m_TagString: FruitGame
+  m_TagString: BoneZoneGame
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

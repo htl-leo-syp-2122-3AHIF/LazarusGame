@@ -6,7 +6,8 @@ using UnityEngine;
 public enum MiniGameType
 {
     SnakeGame,
-    FruitGame
+    FruitGame,
+    BoneZoneGame
 }
 
 public class Enemy : MonoBehaviour
@@ -38,7 +39,6 @@ public class Enemy : MonoBehaviour
     {
         _health = UnityEngine.Random.Range(MIN_HEALTH, MAX_HEALTH);
         _damage = UnityEngine.Random.Range(MIN_DAMAGE, MAX_DAMAGE);
-        // For testing purposes we use SNAKE
         _miniGameActive = false;
         foreach (MiniGameType miniGameType in Enum.GetValues(typeof(MiniGameType)))
         {
@@ -48,6 +48,8 @@ public class Enemy : MonoBehaviour
                 break;
             }
         }
+        Debug.Log(_miniGameType);
+        Debug.Log(_miniGames.Count);
         _miniGame = GetMinigame(_miniGameType);
         _battleManager = (BattleManager) GameObject.Find("GameManager").GetComponent("BattleManager");
     }
@@ -75,7 +77,7 @@ public class Enemy : MonoBehaviour
         if (_miniGames == null)
         {
             Debug.Log("Something went horribly wrong");
-            throw new System.MissingFieldException("No MiniGames were found");
+            throw new MissingFieldException("No MiniGames were found");
         }
 
         foreach (GameObject game in _miniGames)
