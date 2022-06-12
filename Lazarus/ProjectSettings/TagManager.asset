@@ -25,6 +25,8 @@ TagManager:
   - TopWallCatch
   - BottomWallCatch
   - BoneZoneGame
+  - BlackScreen
+  - BlackScreenText
   layers:
   - Default
   - TransparentFX
