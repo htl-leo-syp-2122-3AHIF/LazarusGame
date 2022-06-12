@@ -30,6 +30,7 @@ public class DungeonTeleporter : MonoBehaviour
         collision.GetComponent<Hero>().enabled = false;
         TextMeshProUGUI text = GameObject.FindGameObjectWithTag("BlackScreenText").GetComponent<TextMeshProUGUI>();
         text.text = _message;
+        _anim.Play("On");
         collision.GetComponent<Hero>().enabled = true;
         collision.gameObject.transform.position = new Vector3(ToX, ToY, collision.transform.position.z);
     }
