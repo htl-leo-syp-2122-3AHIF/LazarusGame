@@ -18,6 +18,7 @@ public class SaveLoadSystem
     {
         try
         {
+           
             BinaryFormatter formatter = new BinaryFormatter();
             FileStream stream = new FileStream(Application.dataPath+path, FileMode.Open);
             PlayerStats stats = formatter.Deserialize(stream) as PlayerStats;

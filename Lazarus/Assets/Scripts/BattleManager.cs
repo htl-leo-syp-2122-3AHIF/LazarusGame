@@ -38,7 +38,7 @@ public class BattleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _playerStats = Const.GetPlayerStatsFromTempSave(true);
+        _playerStats = Const.GetPlayerStatsFromTempSave(false);
         
         _uiElements = UI.GetAllUIElements("BattleUI");
         _currState = States.Player;
@@ -48,19 +48,12 @@ public class BattleManager : MonoBehaviour
         _playerName = _uiElements.Q<Label>("PlayerName");
         DialogueText = _uiElements.Q<Label>("Dialogue");
         DialogueWindow = _uiElements.Q<VisualElement>("DialogueWindow");
-        HealthBar.highValue = _playerStats.Health;
+        HealthBar.highValue = _playerStats.MaxHealth;
         HealthBar.lowValue = 0;
-        HealthBar.SetValueWithoutNotify(_playerStats.Health);
+        HealthBar.value = _playerStats.Health;
         AttackButton.clicked+=Attack;
         ItemButton.clicked += Items;
         _enemy = GameObject.Find("Enemy").GetComponent<Enemy>();
-        //Debug.Log(_playerStats.Health);
-        ChangeHealth(5);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
         
     }
 
@@ -82,6 +75,7 @@ public class BattleManager : MonoBehaviour
             SceneManager.LoadScene("World");
 
         }
+        ChangeHealth(1);
         _currState = States.Enemy;
 
     }
@@ -91,15 +85,19 @@ public class BattleManager : MonoBehaviour
         _currState = States.Enemy;
     }
 
-    public void ChangeHealth(float value)
+    public void ChangeHealth(float damage)
     {
-        HealthBar.SetValueWithoutNotify(_playerStats.Health-value);
+        HealthBar.value -= damage;
         _playerStats.Health=HealthBar.value;
+        if (_playerStats.Health <= 0)
+        {
+            SceneManager.LoadScene("World");
+        }
     }
 
     private void OnDestroy()
     {
-        _playerStats.Health = HealthBar.value;
+        
         SaveLoadSystem.SaveGame(_playerStats, Const.BATTLE_PATH);
     }
 

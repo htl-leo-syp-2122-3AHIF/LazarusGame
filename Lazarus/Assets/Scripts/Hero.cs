@@ -52,7 +52,7 @@ public class Hero : MonoBehaviour
 
     private void RandomBattle()
     {
-        float random = Mathf.Round(UnityEngine.Random.Range(0F, 10000F));
+        float random = Mathf.Round(UnityEngine.Random.Range(0F, 100F));
         
         if (random == ENCOUNTER_START_NUM)
         {

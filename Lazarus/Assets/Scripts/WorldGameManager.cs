@@ -16,10 +16,11 @@ public class WorldGameManager : MonoBehaviour
     void Start()
     {
 
-        _playerStats = Const.GetPlayerStatsFromTempSave(true) ;
+        _playerStats = Const.GetPlayerStatsFromTempSave(false) ;
         if(_playerStats ==null)
         {
             _playerStats = Const.GetPlayerStatsFromPermanentSave() ;
+            SaveLoadSystem.SaveGame(_playerStats, Const.BATTLE_PATH);
         }
         _menuUI = UI.GetAllUIElements("MenuUI");
         _menuUI.Q<Label>("HealthPointsValue").text=Convert.ToString(_playerStats.Health);
