@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 116639315}
   - component: {fileID: 116639314}
   - component: {fileID: 116639313}
+  - component: {fileID: 116639316}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: BoneZoneGame
@@ -157,6 +158,7 @@ MonoBehaviour:
   - {fileID: 4854669045917043558, guid: dfba97f253ea0ab4b91b74a48870bb32, type: 3}
   - {fileID: 5060643681161282377, guid: 43eb4f7b409c8d44aa104555ebd7358a, type: 3}
   - {fileID: 5060643681161282377, guid: 19df09c64c5758147975ab43f4d899e6, type: 3}
+  _animator: {fileID: 116639316}
 --- !u!212 &116639314
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -199,7 +201,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.15699539, g: 0.6792453, b: 0.18980683, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -217,13 +219,33 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 116639312}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 13.03, z: 0}
-  m_LocalScale: {x: 7.125, y: -13.2, z: 1}
+  m_LocalPosition: {x: 5, y: 13, z: 0}
+  m_LocalScale: {x: 10, y: 20, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &116639316
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 116639312}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2f98dc26f8ebaf2479a08aebfadd57ce, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1093628538
 GameObject:
   m_ObjectHideFlags: 0
@@ -368,6 +390,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: fb8e0a38-ff10-4293-81ca-8c8651ce4886
     m_ActionName: UI/NavigateMenu[/Keyboard/tab]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 821fae54-775f-4208-9033-e05edd096b79
+    m_ActionName: Player/NavMenu[/Keyboard/tab]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player

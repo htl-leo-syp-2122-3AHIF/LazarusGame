@@ -112,5 +112,10 @@ public class Snek : MonoBehaviour
         }
     }
 
-    
+    private void OnDestroy()
+    {
+        Enemy enemy = _battleManager.Enemy;
+        _battleManager.ChangeHealth(enemy.Damage);
+
+    }
 }

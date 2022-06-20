@@ -77,4 +77,9 @@ public class Catcher : MonoBehaviour
             transform.position = new(Mathf.RoundToInt(transform.position.x), transform.position.y, 0);
         }
     }
+    private void OnDestroy()
+    {
+        Enemy enemy = _battleManager.Enemy;
+        _battleManager.ChangeHealth(enemy.Damage);
+    }
 }

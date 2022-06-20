@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using UnityEditor;
 using UnityEngine;
 
 public class Const 
@@ -12,7 +14,11 @@ public class Const
         PlayerStats playerStats = SaveLoadSystem.LoadGameData(BATTLE_PATH);
         if (shouldCreateNew && playerStats == null)
         {
-            playerStats = new PlayerStats();
+            playerStats = GetPlayerStatsFromPermanentSave();
+            if(playerStats== null)
+            {
+                playerStats=new PlayerStats();
+            }
             SaveLoadSystem.SaveGame( playerStats,Const.BATTLE_PATH);
         }
         return playerStats;
@@ -20,16 +26,31 @@ public class Const
     public static PlayerStats GetPlayerStatsFromPermanentSave()
     {
         PlayerStats playerStats = SaveLoadSystem.LoadGameData(SAVE_PATH);
-        if (playerStats == null)
-        {
-            playerStats = new PlayerStats();
 
-        }
         return playerStats;
     }
 
     public static void SaveGameData()
     {
         SaveLoadSystem.SaveGame(GetPlayerStatsFromTempSave(false),SAVE_PATH);
+    }
+    public static void EndGame()
+    {
+        if (File.Exists(Application.dataPath + Const.BATTLE_PATH))
+        {
+
+            File.Delete(Application.dataPath + Const.BATTLE_PATH);
+            File.Delete(Application.dataPath + Const.BATTLE_PATH + ".meta");
+        }
+
+        if (EditorApplication.isPlaying)
+        {
+            EditorApplication.isPlaying = false;
+        }
+        else
+        {
+            Application.Quit();
+
+        }
     }
 }

@@ -12,15 +12,17 @@ public enum MiniGameType
 
 public class Enemy : MonoBehaviour
 {
-    private const int MAX_HEALTH = 90;
-    private const int MIN_HEALTH = 70;
-    private const int MIN_DAMAGE = 2;
-    private const int MAX_DAMAGE = 4;
-    private const int CRIT_DAMAGE = 5;
+    public const int MAX_HEALTH = 90;
+    public const int MIN_HEALTH = 70;
+    public const int MIN_DAMAGE = 2;
+    public const int MAX_DAMAGE = 4;
+    public const int CRIT_DAMAGE = 5;
 
     private MiniGameType _miniGameType;
     [SerializeField]
     private List<GameObject> _miniGames;
+    [SerializeField]
+    private Animator _animator;
     private GameObject _miniGame;
     private BattleManager _battleManager;
     private bool _miniGameActive;
@@ -37,6 +39,14 @@ public class Enemy : MonoBehaviour
     public int CritDamage { get => CRIT_DAMAGE; }
     void Start()
     {
+        string[] types = Enum.GetNames(typeof(MiniGameType));
+        this.transform.tag = types[UnityEngine.Random.Range(0, types.Length)];
+        switch(transform.tag)
+        {
+            case "SnakeGame":_animator.Play("SnakeAnimation"); break;
+            case "FruitGame": _animator.Play("ButterflyAnimation"); break;
+            case "BoneZoneGame": _animator.Play("SkeletonAnimation"); break;
+        }
         _health = UnityEngine.Random.Range(MIN_HEALTH, MAX_HEALTH);
         _damage = UnityEngine.Random.Range(MIN_DAMAGE, MAX_DAMAGE);
         _miniGameActive = false;
@@ -48,8 +58,6 @@ public class Enemy : MonoBehaviour
                 break;
             }
         }
-        Debug.Log(_miniGameType);
-        Debug.Log(_miniGames.Count);
         _miniGame = GetMinigame(_miniGameType);
         _battleManager = (BattleManager) GameObject.Find("GameManager").GetComponent("BattleManager");
     }

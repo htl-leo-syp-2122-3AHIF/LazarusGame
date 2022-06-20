@@ -73,4 +73,10 @@ public class BoneDodger : MonoBehaviour
     {
         _movement = context.ReadValue<Vector2>();
     }
+    private void OnDestroy()
+    {
+        Enemy enemy = _battleManager.Enemy;
+        _battleManager.ChangeHealth(enemy.Damage);
+
+    }
 }

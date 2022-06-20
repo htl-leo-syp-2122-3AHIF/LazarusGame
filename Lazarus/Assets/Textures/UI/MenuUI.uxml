@@ -17,6 +17,9 @@
             <ui:Label text="CD: " display-tooltip-when-elided="true" name="CritDamage" class="valueDescription statName" style="width: 50px;" />
             <ui:Label text="0" display-tooltip-when-elided="true" name="CritDamageValue" class="statValue" />
         </ui:Label>
-        <ui:Label display-tooltip-when-elided="true" name="inventoryContent" class="tabContent" />
+        <ui:Label display-tooltip-when-elided="true" name="inventoryContent" class="tabContent" style="height: 546px; width: 100%;">
+            <ui:Label text="Items&#10;" display-tooltip-when-elided="true" name="itemTitel" enable-rich-text="false" style="position: relative; color: rgb(255, 255, 255);" />
+            <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" name="items" style="height: 500px; position: absolute; width: 100%; top: 40px; color: rgb(255, 255, 255);" />
+        </ui:Label>
     </ui:VisualElement>
 </ui:UXML>

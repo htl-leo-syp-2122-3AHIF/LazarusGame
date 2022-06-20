@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -19,7 +20,7 @@ public class Hero : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _playerStats = Const.GetPlayerStatsFromPermanentSave();
+        _playerStats = GameObject.FindGameObjectWithTag("GameController").GetComponent<WorldGameManager>().PlayerStats;
         _anim = GetComponent<Animator>();
         _movement = Vector3.zero;
         
@@ -42,8 +43,6 @@ public class Hero : MonoBehaviour
             _anim.SetFloat("lookAtX", _movement.x);
             _anim.SetFloat("lookAtY", _movement.y);
 
-            //random battle encounter
-            RandomBattle();
         }
 
         //change playerpos to new position
@@ -52,7 +51,7 @@ public class Hero : MonoBehaviour
 
     private void RandomBattle()
     {
-        float random = Mathf.Round(UnityEngine.Random.Range(0F, 100F));
+        float random = Mathf.Round(UnityEngine.Random.Range(0F, 300F));
         
         if (random == ENCOUNTER_START_NUM)
         {
@@ -66,4 +65,11 @@ public class Hero : MonoBehaviour
         _movement = context.ReadValue<Vector2>() ;
     }
 
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (_movement != Vector3.zero && collision.CompareTag("EnemyTile"))
+        {
+            RandomBattle();
+        }
+    }
 }

@@ -1,15 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 [System.Serializable]
 public class PlayerStats
 {
 
     private const int DEF_MAX_HEALTH = 15;
-    private const int DEF_LEVEL = 1;
-    private const int DEF_PLAYER_LEVEL = 1;
     private const int DEF_ATTACK_DAMAGE = 10;
     private const int DEF_CRIT_DAMAGE = 21;
     private const string DEF_NAME = "TEST";
@@ -20,7 +17,6 @@ public class PlayerStats
     private float[] _position;
     private int _attackDamage;
     private int _critDamage;
-    private int _playerLevel;
 
     public PlayerStats()
     {
@@ -28,18 +24,27 @@ public class PlayerStats
         MaxHealth = DEF_MAX_HEALTH;
         Name = DEF_NAME;
         AttackDamage = DEF_ATTACK_DAMAGE;
-        PlayerLevel = DEF_PLAYER_LEVEL;
         Position = new float[] { 0, 0 };
         _critDamage = DEF_CRIT_DAMAGE;
     }
 
-    public PlayerStats(float health,string name, float[] position, int attackDamage,int playerLevel, int level)
+    public PlayerStats(float health,string name, float[] position, int attackDamage,int critDamage)
     {
         Health = health;
         Name = name;
         Position = position;
         AttackDamage = attackDamage;
-        PlayerLevel = playerLevel;
+        CritDamage = critDamage;
+    }
+
+    public PlayerStats(string name)
+    {
+        _name = name;
+        Health = DEF_MAX_HEALTH;
+        MaxHealth = DEF_MAX_HEALTH;
+        AttackDamage = DEF_ATTACK_DAMAGE;
+        Position = new float[] { 0, 0 };
+        _critDamage = DEF_CRIT_DAMAGE;
     }
 
     public float Health
@@ -50,7 +55,7 @@ public class PlayerStats
         }
         set
         {
-            _health = Mathf.Max(0, value);
+            _health = Math.Max(0, value);
         }
     }
     public int MaxHealth
@@ -61,7 +66,7 @@ public class PlayerStats
         }
         set
         {
-            _maxHealth = Mathf.Max(0, value);
+            _maxHealth = Math.Max(0, value);
         }
     }
     public string Name
@@ -95,17 +100,6 @@ public class PlayerStats
         set
         {
             _attackDamage = Math.Max(0, value);
-        }
-    }
-    public int PlayerLevel
-    {
-        get
-        {
-            return _playerLevel;
-        }
-        set
-        {
-            _playerLevel = value;
         }
     }
 

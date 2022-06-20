@@ -11,7 +11,7 @@ public enum States
 }
 public class BattleManager : MonoBehaviour
 {
-    private const string BATTLE_PATH = "/Saves/BattleSave.laz";
+    public const string DEF_TEXT = "What do you want to do?";
     private const int CRIT_DAMAGE_CHANCE = 5;
 
     private States _currState;
@@ -24,6 +24,7 @@ public class BattleManager : MonoBehaviour
     private Label _dialogeText;
     private VisualElement _dialogueWindow;
     private Enemy _enemy;
+    private float _enemyDamage;
 
 
     public States CurrState { get => _currState; set => _currState = value; }
@@ -33,7 +34,9 @@ public class BattleManager : MonoBehaviour
     public Label PlayerName { get => _playerName; }
     public Label DialogueText { get => _dialogeText; set => _dialogeText = value; }
     public VisualElement DialogueWindow { get => _dialogueWindow; set => _dialogueWindow = value; }
-    
+    public float EnemyDamage { get => _enemyDamage; set => _enemyDamage = value; }
+    public Enemy Enemy { get => _enemy; set => _enemy=value; }
+
 
     // Start is called before the first frame update
     void Start()
@@ -53,8 +56,9 @@ public class BattleManager : MonoBehaviour
         HealthBar.value = _playerStats.Health;
         AttackButton.clicked+=Attack;
         ItemButton.clicked += Items;
-        _enemy = GameObject.Find("Enemy").GetComponent<Enemy>();
-        
+        Enemy = GameObject.Find("Enemy").GetComponent<Enemy>();
+        DialogueText.text = DEF_TEXT;
+        EnemyDamage = 0;
     }
 
     public void Attack()
@@ -62,43 +66,68 @@ public class BattleManager : MonoBehaviour
         float random = Mathf.Round(UnityEngine.Random.Range(0F, 10F));
         if(random==CRIT_DAMAGE_CHANCE)
         {
-            _enemy.Health -= _playerStats.CritDamage;
+            Enemy.Health -= _playerStats.CritDamage;
             _dialogeText.text = "Enemy took " + _playerStats.CritDamage + " Damage!";
         }
         else
         {
-            _enemy.Health -= _playerStats.AttackDamage;
-            _dialogeText.text = "Enemy took " + _playerStats.AttackDamage + " Damage!";
+            Enemy.Health -= _playerStats.AttackDamage;
+            _dialogeText.text = "Enemy took " + _playerStats.AttackDamage + " damage!";
+            
         }
-        if (_enemy.Health<=0)
+        if (Enemy.Health<=0)
         {
             SceneManager.LoadScene("World");
-
         }
-        ChangeHealth(1);
-        _currState = States.Enemy;
+        
+        StartCoroutine(DelayForButtons());
+
 
     }
     public void Items()
     {
-        Debug.Log("ItemTest");
+        
         _currState = States.Enemy;
+        
+        _dialogeText.text = DEF_TEXT;
     }
 
     public void ChangeHealth(float damage)
     {
         HealthBar.value -= damage;
         _playerStats.Health=HealthBar.value;
+        _dialogeText.text = "You took " + damage + " damage!";
+        StartCoroutine(DelayForEnemyAttack());
         if (_playerStats.Health <= 0)
         {
-            SceneManager.LoadScene("World");
+            _dialogeText.text = "You died!";
+            StartCoroutine(DelayForEnemyAttack());
+            SceneManager.LoadScene("GameOver");
         }
     }
 
     private void OnDestroy()
     {
-        
         SaveLoadSystem.SaveGame(_playerStats, Const.BATTLE_PATH);
     }
+    IEnumerator DelayForButtons()
+    {
+        AttackButton.SetEnabled(false);
+        ItemButton.SetEnabled(false);    
+        yield return new WaitForSeconds(2);
+        _dialogeText.text = DEF_TEXT;
+        _currState = States.Enemy;
 
+    }
+    IEnumerator DelayForEnemyAttack()
+    {
+        AttackButton.SetEnabled(false);
+        ItemButton.SetEnabled(false);
+        yield return new WaitForSeconds(2);
+        _dialogeText.text = DEF_TEXT;
+        _currState = States.Player;
+        AttackButton.SetEnabled(true);
+        ItemButton.SetEnabled(true);
+
+    }
 }

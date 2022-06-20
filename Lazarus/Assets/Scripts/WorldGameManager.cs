@@ -11,55 +11,31 @@ public class WorldGameManager : MonoBehaviour
 {
     private VisualElement _menuUI;
     private PlayerStats _playerStats;
+    private ScrollView _scrollView;
+
+    public PlayerStats PlayerStats { get => _playerStats; set => _playerStats = value; }
+
 
     // Start is called before the first frame update
     void Start()
     {
-
-        _playerStats = Const.GetPlayerStatsFromTempSave(false) ;
-        if(_playerStats ==null)
-        {
-            _playerStats = Const.GetPlayerStatsFromPermanentSave() ;
-            SaveLoadSystem.SaveGame(_playerStats, Const.BATTLE_PATH);
-        }
+        PlayerStats = Const.GetPlayerStatsFromTempSave(true);
+        
         _menuUI = UI.GetAllUIElements("MenuUI");
-        _menuUI.Q<Label>("HealthPointsValue").text=Convert.ToString(_playerStats.Health);
-        _menuUI.Q<Label>("AttackDamageValue").text = Convert.ToString(_playerStats.AttackDamage);
-        _menuUI.Q<Label>("CritDamageValue").text = Convert.ToString(_playerStats.CritDamage);
+        _menuUI.Q<Label>("HealthPointsValue").text=Convert.ToString(PlayerStats.Health);
+        _menuUI.Q<Label>("AttackDamageValue").text = Convert.ToString(PlayerStats.AttackDamage);
+        _menuUI.Q<Label>("CritDamageValue").text = Convert.ToString(PlayerStats.CritDamage);
         _menuUI.Q<Button>("SaveBtn").clicked += Const.SaveGameData;
         _menuUI.style.display = DisplayStyle.None;
-        _menuUI.Q<Button>("ExitGameBtn").clicked += EndGame;
-        _menuUI.Q<Label>("NameValue").text = _playerStats.Name;
-       
+        _menuUI.Q<Button>("ExitGameBtn").clicked += Const.EndGame;
+        _menuUI.Q<Label>("NameValue").text = PlayerStats.Name;
+        _scrollView =_menuUI.Q<ScrollView>("items");
+
         
     }
 
-    private void EndGame()
-    {
-        if(File.Exists(Application.dataPath+Const.BATTLE_PATH))
-        {
-            
-            File.Delete(Application.dataPath + Const.BATTLE_PATH);
-            File.Delete(Application.dataPath + Const.BATTLE_PATH + ".meta");
-        }
+    
 
-        if (EditorApplication.isPlaying)
-        {
-            EditorApplication.isPlaying = false;
-        }
-        else
-        {
-            Application.Quit();
-
-        }
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void MenuInput(InputAction.CallbackContext context)
     {

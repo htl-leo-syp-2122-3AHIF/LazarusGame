@@ -8,7 +8,9 @@ public class MiniGame : MonoBehaviour
     BattleManager _battleManager;
     void Start()
     {
+    
         _battleManager = (BattleManager)GameObject.Find("GameManager").GetComponent("BattleManager");
+        _battleManager.DialogueText.text = "Enemy is attacking!";
     }
 
     // Update is called once per frame
@@ -18,6 +20,8 @@ public class MiniGame : MonoBehaviour
         {
             if (_battleManager.CurrState == States.Player)
             {
+                _battleManager.AttackButton.SetEnabled(true);
+                _battleManager.ItemButton.SetEnabled(true);
                 Destroy(gameObject);
             }
         }
