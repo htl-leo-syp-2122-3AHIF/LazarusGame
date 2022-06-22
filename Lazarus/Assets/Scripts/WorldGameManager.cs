@@ -12,6 +12,7 @@ public class WorldGameManager : MonoBehaviour
     private VisualElement _menuUI;
     private PlayerStats _playerStats;
     private ScrollView _scrollView;
+    private Inventory _inventory;
 
     public PlayerStats PlayerStats { get => _playerStats; set => _playerStats = value; }
 
@@ -31,10 +32,52 @@ public class WorldGameManager : MonoBehaviour
         _menuUI.Q<Label>("NameValue").text = PlayerStats.Name;
         _scrollView =_menuUI.Q<ScrollView>("items");
 
-        
+        _inventory = PlayerStats.Inventory;
+        Item item1 = new Item("name", ItemType.Health, 1);
+        _inventory.AddItem(item1);
+        _inventory.AddItem(item1);
+
+        _inventory.AddItem(item1);
+        _inventory.AddItem(item1);
+
+        _inventory.AddItem(item1);
+        _inventory.AddItem(new Item("test", ItemType.Attack, 2));
+        _inventory.AddItem(new Item("test", ItemType.Attack, 2));
+        _inventory.AddItem(new Item("test", ItemType.Attack, 2));
+        _inventory.AddItem(new Item("test", ItemType.Attack, 2));
+        _inventory.AddItem(new Item("test", ItemType.Attack, 2));
+        _inventory.AddItem(new Item("test", ItemType.Attack, 2));
+        _inventory.AddItem(new Item("test", ItemType.Attack, 2));
+        _inventory.AddItem(new Item("test", ItemType.Attack, 2));
+        _inventory.AddItem(new Item("test", ItemType.Attack, 2));
+        _inventory.AddItem(new Item("test", ItemType.Attack, 2));
+        _inventory.AddItem(new Item("test", ItemType.Attack, 2));
+        _inventory.AddItem(new Item("test", ItemType.Attack, 2));
+        _inventory.AddItem(new Item("test", ItemType.Attack, 2));
+
+        foreach (Item item in _inventory.Items.Keys)
+        {
+            Button btn = new Button();
+            btn.text =  ""+item.Name+":" + _inventory.Items[item];
+
+            btn.RegisterCallback<ClickEvent>(delegate { _inventory.UseItem(item.Name);
+            if(_inventory.Items[item]==0)
+                {
+                    Debug.Log("Test");
+                    _scrollView.Remove(btn);
+                    _inventory.Items.Remove(item);
+                }
+                else
+                {
+                    btn.text = "" + item.Name + ":" + _inventory.Items[item];
+                }
+            });
+            _scrollView.Add(btn);
+        }
+
     }
 
-    
+
 
 
     public void MenuInput(InputAction.CallbackContext context)

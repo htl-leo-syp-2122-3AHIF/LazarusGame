@@ -12,41 +12,39 @@ public class PlayerStats
     private const string DEF_NAME = "TEST";
 
     private float _health;
-    private int _maxHealth;
+    private float _maxHealth;
     private string _name;
     private float[] _position;
     private int _attackDamage;
     private int _critDamage;
+    private Inventory _inventory;
 
     public PlayerStats()
     {
-        Health = DEF_MAX_HEALTH;
-        MaxHealth = DEF_MAX_HEALTH;
-        Name = DEF_NAME;
-        AttackDamage = DEF_ATTACK_DAMAGE;
-        Position = new float[] { 0, 0 };
-        _critDamage = DEF_CRIT_DAMAGE;
+        InitiatePlayerStats(DEF_MAX_HEALTH, DEF_NAME, new float[] { 0, 0 }, DEF_ATTACK_DAMAGE, DEF_CRIT_DAMAGE, new Inventory(new Dictionary<Item, int>()));
+
     }
 
-    public PlayerStats(float health,string name, float[] position, int attackDamage,int critDamage)
+    public PlayerStats(float health,string name, float[] position, int attackDamage,int critDamage,Inventory inventory)
     {
-        Health = health;
-        Name = name;
-        Position = position;
-        AttackDamage = attackDamage;
-        CritDamage = critDamage;
+        InitiatePlayerStats(health, name, position, attackDamage, critDamage, inventory);       
     }
 
     public PlayerStats(string name)
     {
-        _name = name;
-        Health = DEF_MAX_HEALTH;
-        MaxHealth = DEF_MAX_HEALTH;
-        AttackDamage = DEF_ATTACK_DAMAGE;
-        Position = new float[] { 0, 0 };
-        _critDamage = DEF_CRIT_DAMAGE;
+        InitiatePlayerStats(DEF_MAX_HEALTH, name, new float[] { 0, 0 },DEF_ATTACK_DAMAGE,DEF_CRIT_DAMAGE, new Inventory(new Dictionary<Item, int>()));
     }
 
+    private void InitiatePlayerStats(float health, string name, float[] position, int attackDamage, int critDamage, Inventory inventory)
+    {
+        Health = health;
+        _maxHealth = health ;
+        Name = name;
+        Position = position;
+        AttackDamage = attackDamage;
+        CritDamage = critDamage;
+        Inventory = inventory;
+    }
     public float Health
     {
         get
@@ -58,7 +56,7 @@ public class PlayerStats
             _health = Math.Max(0, value);
         }
     }
-    public int MaxHealth
+    public float MaxHealth
     {
         get
         {
@@ -105,4 +103,7 @@ public class PlayerStats
 
 
     public int CritDamage { get => _critDamage; set => _critDamage = value; }
+
+
+    public Inventory Inventory { get => _inventory; set => _inventory = value; }
 }

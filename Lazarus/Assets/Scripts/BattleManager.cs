@@ -1,5 +1,5 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -25,6 +25,8 @@ public class BattleManager : MonoBehaviour
     private VisualElement _dialogueWindow;
     private Enemy _enemy;
     private float _enemyDamage;
+    private Inventory _inventory;
+    private ScrollView _inventoryScroller;
 
 
     public States CurrState { get => _currState; set => _currState = value; }
@@ -35,7 +37,10 @@ public class BattleManager : MonoBehaviour
     public Label DialogueText { get => _dialogeText; set => _dialogeText = value; }
     public VisualElement DialogueWindow { get => _dialogueWindow; set => _dialogueWindow = value; }
     public float EnemyDamage { get => _enemyDamage; set => _enemyDamage = value; }
-    public Enemy Enemy { get => _enemy; set => _enemy=value; }
+    public Enemy Enemy { get => _enemy; set => _enemy = value; }
+    public ScrollView InventoryScroller { get => _inventoryScroller; set => _inventoryScroller = value; }
+
+    
 
 
     // Start is called before the first frame update
@@ -51,15 +56,66 @@ public class BattleManager : MonoBehaviour
         _playerName = _uiElements.Q<Label>("PlayerName");
         DialogueText = _uiElements.Q<Label>("Dialogue");
         DialogueWindow = _uiElements.Q<VisualElement>("DialogueWindow");
+        InventoryScroller = _uiElements.Q<ScrollView>("Items");
         HealthBar.highValue = _playerStats.MaxHealth;
         HealthBar.lowValue = 0;
         HealthBar.value = _playerStats.Health;
+        
         AttackButton.clicked+=Attack;
         ItemButton.clicked += Items;
         Enemy = GameObject.Find("Enemy").GetComponent<Enemy>();
         DialogueText.text = DEF_TEXT;
         EnemyDamage = 0;
+        _playerName.text = _playerStats.Name;
+        _inventory = _playerStats.Inventory;
+        Item item1 = new Item("name", ItemType.Health, 1);
+        _inventory.AddItem(item1);
+        _inventory.AddItem(item1);
+
+        _inventory.AddItem(item1);
+        _inventory.AddItem(item1);
+
+        _inventory.AddItem(item1);
+        _inventory.AddItem(new Item("test", ItemType.Attack, 2));
+        _inventory.AddItem(new Item("test", ItemType.Attack, 2));
+        _inventory.AddItem(new Item("test", ItemType.Attack, 2));
+        _inventory.AddItem(new Item("test", ItemType.Attack, 2));
+        _inventory.AddItem(new Item("test", ItemType.Attack, 2));
+        _inventory.AddItem(new Item("test", ItemType.Attack, 2));
+        _inventory.AddItem(new Item("test", ItemType.Attack, 2));
+        _inventory.AddItem(new Item("test", ItemType.Attack, 2));
+        _inventory.AddItem(new Item("test", ItemType.Attack, 2));
+        _inventory.AddItem(new Item("test", ItemType.Attack, 2));
+        _inventory.AddItem(new Item("test", ItemType.Attack, 2));
+        _inventory.AddItem(new Item("test", ItemType.Attack, 2));
+
+        _inventory.AddItem(new Item("te1st", ItemType.Attack, 2));
+
+        foreach (Item item in _inventory.Items.Keys)
+        {
+            Button btn = new Button();
+            btn.text = "" + item.Name + ":" + _inventory.Items[item];
+            InventoryScroller.Add(btn);
+            btn.RegisterCallback<ClickEvent>(delegate {
+                _inventory.UseItem(item.Name);
+                if (_inventory.Items[item] == 0)
+                {
+                    InventoryScroller.Remove(btn);
+                    _inventory.Items.Remove(item);
+                }
+                else
+                {
+                    btn.text = "" + item.Name + ":" + _inventory.Items[item];
+                }
+                DialogueText.text = "Your " + item.Type.ToString() + " is now " + item.Amount + " points higher!";
+                Items();
+            });
+        }
+        InventoryScroller.SetEnabled(false);
+        InventoryScroller.visible = false;
     }
+
+   
 
     public void Attack()
     {
@@ -86,10 +142,27 @@ public class BattleManager : MonoBehaviour
     }
     public void Items()
     {
-        
-        _currState = States.Enemy;
-        
-        _dialogeText.text = DEF_TEXT;
+
+        if (_dialogeText.text==DEF_TEXT)
+        {
+            DialogueText.text = "";
+            InventoryScroller.SetEnabled(true);
+            InventoryScroller.visible = true;
+            if (_inventory.Items.Count == 0)
+            {
+                InventoryScroller.SetEnabled(false);
+                InventoryScroller.visible = false;
+                DialogueText.text = "No Items Found!";
+            }
+            Debug.Log(_dialogeText.text);
+        }
+        else
+        {
+            
+            StartCoroutine(DelayForButtons());
+
+        }
+
     }
 
     public void ChangeHealth(float damage)
@@ -113,7 +186,9 @@ public class BattleManager : MonoBehaviour
     IEnumerator DelayForButtons()
     {
         AttackButton.SetEnabled(false);
-        ItemButton.SetEnabled(false);    
+        ItemButton.SetEnabled(false);
+        InventoryScroller.SetEnabled(false);
+        InventoryScroller.visible = false;
         yield return new WaitForSeconds(2);
         _dialogeText.text = DEF_TEXT;
         _currState = States.Enemy;
@@ -123,6 +198,7 @@ public class BattleManager : MonoBehaviour
     {
         AttackButton.SetEnabled(false);
         ItemButton.SetEnabled(false);
+
         yield return new WaitForSeconds(2);
         _dialogeText.text = DEF_TEXT;
         _currState = States.Player;
