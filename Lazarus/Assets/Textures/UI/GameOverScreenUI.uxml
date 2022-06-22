@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement style="height: 616px;">
-        <ui:Label text="GAME OVER" display-tooltip-when-elided="true" name="GameOverTitle" style="font-size: 100px; height: 130px; -unity-text-align: upper-center; justify-content: flex-start; top: 100px; color: rgb(255, 0, 0);" />
-        <ui:Button text="Load" display-tooltip-when-elided="true" name="LoadButton" style="width: 200px; font-size: 12px; color: rgb(255, 255, 255); -unity-background-image-tint-color: rgb(255, 255, 255); background-color: rgb(255, 0, 0); justify-content: flex-start; align-items: stretch; left: 360px; flex-wrap: nowrap; overflow: hidden; top: 100px;" />
-        <ui:Button text="Exit" display-tooltip-when-elided="true" name="ExitButton" style="background-color: rgba(255, 0, 0, 255); color: rgba(255, 255, 255, 255); width: 200px; left: 360px; top: 140px;" />
+    <ui:VisualElement style="height: 616px; justify-content: center; align-items: center;">
+        <ui:Label text="GAME OVER" display-tooltip-when-elided="true" name="GameOverTitle" style="font-size: 100px; height: 130px; -unity-text-align: upper-center; justify-content: flex-start; top: auto; color: rgb(255, 0, 0);" />
+        <ui:Button text="Load" display-tooltip-when-elided="true" name="LoadButton" style="width: 200px; font-size: 12px; color: rgb(255, 255, 255); -unity-background-image-tint-color: rgb(255, 255, 255); background-color: rgb(255, 0, 0); justify-content: flex-start; align-items: stretch; left: auto; flex-wrap: nowrap; overflow: hidden; top: auto;" />
+        <ui:Button text="Exit" display-tooltip-when-elided="true" name="ExitButton" style="background-color: rgb(255, 0, 0); color: rgb(255, 255, 255); width: 200px; left: auto; top: auto;" />
     </ui:VisualElement>
 </ui:UXML>

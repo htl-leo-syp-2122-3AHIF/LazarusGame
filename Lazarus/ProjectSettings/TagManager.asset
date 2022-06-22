@@ -28,6 +28,7 @@ TagManager:
   - BlackScreen
   - BlackScreenText
   - EnemyTile
+  - GameOver
   layers:
   - Default
   - TransparentFX
