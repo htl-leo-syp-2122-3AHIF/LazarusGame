@@ -60,8 +60,9 @@ public class WorldGameManager : MonoBehaviour
             Button btn = new Button();
             btn.text =  ""+item.Name+":" + _inventory.Items[item];
 
-            btn.RegisterCallback<ClickEvent>(delegate { _inventory.UseItem(item.Name);
-            if(_inventory.Items[item]==0)
+            btn.RegisterCallback<ClickEvent>(delegate { 
+                _inventory.UseItem(item.Name);
+                if(_inventory.Items[item]==0)
                 {
                     Debug.Log("Test");
                     _scrollView.Remove(btn);

@@ -4,33 +4,46 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class MenuController : MonoBehaviour
 {
-    [Header("Levels to load")]
-    public string _gameLevel;
     [SerializeField]
-    private GameObject noSaveGameDialogue = null;
+    private GameObject _noSaveGameDialogue = null;
+    [SerializeField]
+    private TMP_InputField _inputField = null;
 
+    private string _gameLevel;
 
-    public void NewGameDialogYes()
+    public void Start()
     {
-        if (File.Exists(Const.SAVE_PATH))
+        _gameLevel = "World";
+    }
+
+    public void NewGameDialogAccept()
+    {
+        if (File.Exists(Application.dataPath + Const.SAVE_PATH))
         {
-            File.Delete(Const.SAVE_PATH);
+            File.Delete(Application.dataPath + Const.SAVE_PATH);
+            File.Delete(Application.dataPath + Const.SAVE_PATH + ".meta");
         }
+
+        PlayerStats playerStats = new PlayerStats(_inputField.text);
+
+        SaveLoadSystem.SaveGame(playerStats, Const.SAVE_PATH);
+        
         SceneManager.LoadScene(_gameLevel);
     }
 
     public void LoadGameDialogYes()
     {
-        if(File.Exists(Const.SAVE_PATH))
+        if(File.Exists(Application.dataPath + Const.SAVE_PATH))
         {
             SceneManager.LoadScene(_gameLevel);
         }
         else
         {
-            noSaveGameDialogue.SetActive(true);
+            _noSaveGameDialogue.SetActive(true);
         }
     }
 

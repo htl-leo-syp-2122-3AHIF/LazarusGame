@@ -16,14 +16,16 @@ public class Hero : MonoBehaviour
     private Animator _anim;
     private Vector3 _movement;
     private PlayerStats _playerStats;
+    private WorldGameManager _gameManager;
     
     // Start is called before the first frame update
     void Start()
     {
-        _playerStats = GameObject.FindGameObjectWithTag("GameController").GetComponent<WorldGameManager>().PlayerStats;
+        _playerStats = Const.GetPlayerStatsFromTempSave(true);
+        transform.SetPositionAndRotation(new(_playerStats.Position[0], _playerStats.Position[1], 0f), transform.rotation);
         _anim = GetComponent<Animator>();
         _movement = Vector3.zero;
-        
+        _gameManager = (WorldGameManager)GameObject.Find("GameManager").GetComponent("WorldGameManager");
     }
 
     // Update is called once per frame
@@ -42,7 +44,6 @@ public class Hero : MonoBehaviour
         {
             _anim.SetFloat("lookAtX", _movement.x);
             _anim.SetFloat("lookAtY", _movement.y);
-
         }
 
         //change playerpos to new position
@@ -71,5 +72,12 @@ public class Hero : MonoBehaviour
         {
             RandomBattle();
         }
+    }
+
+    private void OnDestroy()
+    {
+        _playerStats.Position[0] = transform.position.x;
+        _playerStats.Position[1] = transform.position.y;
+        SaveLoadSystem.SaveGame(_playerStats, Const.BATTLE_PATH);
     }
 }

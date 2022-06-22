@@ -17,9 +17,9 @@ public class Const
             playerStats = GetPlayerStatsFromPermanentSave();
             if(playerStats== null)
             {
-                playerStats=new PlayerStats();
+                playerStats = new PlayerStats();
             }
-            SaveLoadSystem.SaveGame( playerStats,Const.BATTLE_PATH);
+            SaveLoadSystem.SaveGame(playerStats, BATTLE_PATH);
         }
         return playerStats;
     }
@@ -36,22 +36,14 @@ public class Const
     }
     public static void EndGame()
     {
-        if (File.Exists(Application.dataPath + Const.BATTLE_PATH))
+        if (File.Exists(Application.dataPath + BATTLE_PATH))
         {
-
-            File.Delete(Application.dataPath + Const.BATTLE_PATH);
-            File.Delete(Application.dataPath + Const.BATTLE_PATH + ".meta");
+            File.Delete(Application.dataPath + BATTLE_PATH);
+            File.Delete(Application.dataPath + BATTLE_PATH + ".meta");
         }
 
-        if (EditorApplication.isPlaying)
-        {
-            EditorApplication.isPlaying = false;
-        }
-        else
-        {
-            Application.Quit();
-
-        }
+        Debug.Log("Exit");
+        Application.Quit();
     }
     
 }
