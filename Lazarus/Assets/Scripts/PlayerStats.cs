@@ -106,4 +106,14 @@ public class PlayerStats
 
 
     public Inventory Inventory { get => _inventory; set => _inventory = value; }
+
+
+    /// <summary>
+    /// After every battle the stats should be reset because an potion shouldnt last longer than one battle
+    /// </summary>
+    internal void ResetStatsAfterBattle()
+    {
+        AttackDamage = DEF_ATTACK_DAMAGE;
+        CritDamage = DEF_CRIT_DAMAGE;
+    }
 }

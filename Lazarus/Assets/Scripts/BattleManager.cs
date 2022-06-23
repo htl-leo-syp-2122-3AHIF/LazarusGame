@@ -27,6 +27,7 @@ public class BattleManager : MonoBehaviour
     private float _enemyDamage;
     private Inventory _inventory;
     private ScrollView _inventoryScroller;
+    
 
 
     public States CurrState { get => _currState; set => _currState = value; }
@@ -68,28 +69,6 @@ public class BattleManager : MonoBehaviour
         EnemyDamage = 0;
         _playerName.text = _playerStats.Name;
         _inventory = _playerStats.Inventory;
-        Item item1 = new Item("name", ItemType.Health, 1);
-        _inventory.AddItem(item1);
-        _inventory.AddItem(item1);
-
-        _inventory.AddItem(item1);
-        _inventory.AddItem(item1);
-
-        _inventory.AddItem(item1);
-        _inventory.AddItem(new Item("test", ItemType.Attack, 2));
-        _inventory.AddItem(new Item("test", ItemType.Attack, 2));
-        _inventory.AddItem(new Item("test", ItemType.Attack, 2));
-        _inventory.AddItem(new Item("test", ItemType.Attack, 2));
-        _inventory.AddItem(new Item("test", ItemType.Attack, 2));
-        _inventory.AddItem(new Item("test", ItemType.Attack, 2));
-        _inventory.AddItem(new Item("test", ItemType.Attack, 2));
-        _inventory.AddItem(new Item("test", ItemType.Attack, 2));
-        _inventory.AddItem(new Item("test", ItemType.Attack, 2));
-        _inventory.AddItem(new Item("test", ItemType.Attack, 2));
-        _inventory.AddItem(new Item("test", ItemType.Attack, 2));
-        _inventory.AddItem(new Item("test", ItemType.Attack, 2));
-
-        _inventory.AddItem(new Item("te1st", ItemType.Attack, 2));
 
         foreach (Item item in _inventory.Items.Keys)
         {
@@ -97,7 +76,8 @@ public class BattleManager : MonoBehaviour
             btn.text = "" + item.Name + ":" + _inventory.Items[item];
             InventoryScroller.Add(btn);
             btn.RegisterCallback<ClickEvent>(delegate {
-                _inventory.UseItem(item.Name);
+                Item foundItem= _inventory.UseItem(item.Name,_playerStats);
+                
                 if (_inventory.Items[item] == 0)
                 {
                     InventoryScroller.Remove(btn);
@@ -107,7 +87,15 @@ public class BattleManager : MonoBehaviour
                 {
                     btn.text = "" + item.Name + ":" + _inventory.Items[item];
                 }
-                DialogueText.text = "Your " + item.Type.ToString() + " is now " + item.Amount + " points higher!";
+                if(foundItem!=null)
+                {
+                    HealthBar.value= _playerStats.Health;
+                    DialogueText.text = "Your " + item.Type.ToString() + " is now " + item.Amount + " points higher!";
+                }
+                else
+                {
+                    DialogueText.text = "You already have full health!";
+                }
                 Items();
             });
         }
@@ -170,17 +158,18 @@ public class BattleManager : MonoBehaviour
         HealthBar.value -= damage;
         _playerStats.Health=HealthBar.value;
         _dialogeText.text = "You took " + damage + " damage!";
-        StartCoroutine(DelayForEnemyAttack());
         if (_playerStats.Health <= 0)
         {
             _dialogeText.text = "You died!";
-            StartCoroutine(DelayForEnemyAttack());
             SceneManager.LoadScene("GameOver");
         }
+        StartCoroutine(DelayForEnemyAttack());
+
     }
 
     private void OnDestroy()
     {
+        _playerStats.ResetStatsAfterBattle();
         SaveLoadSystem.SaveGame(_playerStats, Const.BATTLE_PATH);
     }
     IEnumerator DelayForButtons()

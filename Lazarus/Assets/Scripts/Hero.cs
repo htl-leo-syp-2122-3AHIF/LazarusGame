@@ -17,15 +17,16 @@ public class Hero : MonoBehaviour
     private Vector3 _movement;
     private PlayerStats _playerStats;
     private WorldGameManager _gameManager;
-    
+
+    public PlayerStats PlayerStats { get => _playerStats; set => _playerStats = value; }
+
     // Start is called before the first frame update
     void Start()
     {
-        _playerStats = Const.GetPlayerStatsFromTempSave(true);
-        transform.SetPositionAndRotation(new(_playerStats.Position[0], _playerStats.Position[1], 0f), transform.rotation);
+        PlayerStats = Const.GetPlayerStatsFromTempSave(true);
+        transform.SetPositionAndRotation(new(PlayerStats.Position[0], PlayerStats.Position[1], 0f), transform.rotation);
         _anim = GetComponent<Animator>();
         _movement = Vector3.zero;
-        _gameManager = (WorldGameManager)GameObject.Find("GameManager").GetComponent("WorldGameManager");
     }
 
     // Update is called once per frame
@@ -42,6 +43,7 @@ public class Hero : MonoBehaviour
             
         if (_movement != Vector3.zero)
         {
+            
             _anim.SetFloat("lookAtX", _movement.x);
             _anim.SetFloat("lookAtY", _movement.y);
         }
@@ -56,7 +58,7 @@ public class Hero : MonoBehaviour
         
         if (random == ENCOUNTER_START_NUM)
         {
-            SaveLoadSystem.SaveGame(_playerStats, Const.BATTLE_PATH);
+            SaveLoadSystem.SaveGame(PlayerStats, Const.BATTLE_PATH);
             SceneManager.LoadScene("Battle");
         }
     }
@@ -76,8 +78,8 @@ public class Hero : MonoBehaviour
 
     private void OnDestroy()
     {
-        _playerStats.Position[0] = transform.position.x;
-        _playerStats.Position[1] = transform.position.y;
-        SaveLoadSystem.SaveGame(_playerStats, Const.BATTLE_PATH);
+        PlayerStats.Position[0] = transform.position.x;
+        PlayerStats.Position[1] = transform.position.y;
+        SaveLoadSystem.SaveGame(PlayerStats, Const.BATTLE_PATH);
     }
 }

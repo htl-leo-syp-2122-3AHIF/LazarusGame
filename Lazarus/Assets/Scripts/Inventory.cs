@@ -14,17 +14,42 @@ public class Inventory
         _items = items;
     }
 
-    public Item UseItem(string name)
+    public Item UseItem(string name, PlayerStats _playerStats)
     {
+        Item foundItem = null;
         foreach(Item item in Items.Keys)
         {
-           if(item.Name==name)
-           {
-                Items[item]--;
-                return item;
-           }
+            if(item.Name == name)
+            {
+                foundItem = item;
+                switch (item.Type)
+                {
+                    case ItemType.Health:
+                        if (_playerStats.Health != _playerStats.MaxHealth)
+                        {
+                            _playerStats.Health += item.Amount;
+                            _playerStats.Health = Math.Min(_playerStats.MaxHealth, _playerStats.Health);
+                        }
+                        else
+                        {
+                            foundItem = null;
+                        }
+                        break;
+                    case ItemType.Attack:
+                        _playerStats.AttackDamage += (int)item.Amount;
+                        break;
+                    case ItemType.Crit:
+                        _playerStats.CritDamage += (int)item.Amount;
+                        break;
+                }
+                
+            }
         }
-        return null;
+        if(foundItem!=null)
+        {
+            Items[foundItem]--;
+        }
+        return foundItem;
     }
     public void AddItem(Item item)
     {
