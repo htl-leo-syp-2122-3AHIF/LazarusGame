@@ -29,6 +29,7 @@ TagManager:
   - BlackScreenText
   - EnemyTile
   - GameOver
+  - NPC
   layers:
   - Default
   - TransparentFX

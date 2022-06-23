@@ -54,13 +54,14 @@ public class Hero : MonoBehaviour
 
     private void RandomBattle()
     {
+        /*
         float random = Mathf.Round(UnityEngine.Random.Range(0F, 100F));
         
         if (random == ENCOUNTER_START_NUM)
         {
             SaveLoadSystem.SaveGame(PlayerStats, Const.BATTLE_PATH);
             SceneManager.LoadScene("Battle");
-        }
+        }*/
     }
 
     public void MoveInput(InputAction.CallbackContext context)
@@ -70,9 +71,12 @@ public class Hero : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (_movement != Vector3.zero && collision.CompareTag("EnemyTile"))
+        if (collision.tag != "NPC")
         {
-            RandomBattle();
+            if (_movement != Vector3.zero && collision.CompareTag("EnemyTile"))
+            {
+                RandomBattle();
+            }
         }
     }
 
